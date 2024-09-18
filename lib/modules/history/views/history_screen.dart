@@ -24,7 +24,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
     Future(() {
       final controller = context.read(historyController.notifier);
       controller.getAllHistory();
-      //controller.callApis();
     });
   }
 
