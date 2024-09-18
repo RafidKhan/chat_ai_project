@@ -15,6 +15,7 @@ enum AppUrl {
   promptTags,
   tagWisePrompts,
   fileUpload,
+  allHistory,
 }
 
 extension AppUrlExtention on AppUrl {
@@ -71,6 +72,8 @@ extension AppUrlExtention on AppUrl {
         return "prompt?packageType=FREE&pageSize=0&tagId={TAG_ID}";
       case AppUrl.fileUpload:
         return "file-upload";
+      case AppUrl.allHistory:
+        return "history";
 
       default:
     }

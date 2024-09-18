@@ -7,8 +7,26 @@ import 'package:chat_on/utils/view_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HistoryScreen extends StatelessWidget {
+import '../controller/history_controller.dart';
+
+class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future(() {
+      final controller = context.read(historyController.notifier);
+      controller.getAllHistory();
+      //controller.callApis();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +54,7 @@ class HistoryScreen extends StatelessWidget {
               },
               itemBuilder: (context, index) {
                 const model = HistoryItemModel(
-                  title:
-                      "How many hours of sleep does a man need for proper rest?",
+                  title: "How many hours of sleep does a man need for proper rest?",
                   dateTime: "19.04.2024 22:21",
                 );
                 return HistoryItem(
