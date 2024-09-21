@@ -1,5 +1,5 @@
 import 'package:chat_on/utils/enum.dart';
-
+import 'package:dio/dio.dart';
 import '../../../constant/app_url.dart';
 import '/data_provider/api_client.dart';
 class HistoryApi {
@@ -7,11 +7,14 @@ class HistoryApi {
 
   HistoryApi();
 
-  Future getAllHistory({required Function(dynamic response) onSuccess}) async{
+  Future getAllHistory({required Function(Response response) onSuccess})
+  async{
     await _apiClient.request(
         url: AppUrl.allHistory.url,
         method: Method.GET,
-        onSuccessFunction: onSuccess);
+        onSuccessFunction: onSuccess,
+        isPopGlobalDialog: false,
+    );
   }
 }
 

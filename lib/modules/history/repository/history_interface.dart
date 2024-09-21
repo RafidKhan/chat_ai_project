@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../model/get_all_history_reponse.dart';
+
 @immutable
 abstract class IHistoryRepository {
   Future getAllHistory({
-    required Function(String response) onSuccess,
+    required Function(GetAllHistoryResponse response) onSuccess,
  });
 }
 
