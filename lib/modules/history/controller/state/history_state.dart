@@ -12,9 +12,9 @@ class HistoryState{
     this.getAllHistoryResponse});
 
   HistoryState copyWith({bool? isLoading,
-    GetAllHistoryResponse? getAllHistoryResponse,}){
+    GetAllHistoryResponse? getAllHistoryResponse}){
    return HistoryState(
-     isLoading: isLoading,
+     isLoading: isLoading ?? this.isLoading,
      getAllHistoryResponse: getAllHistoryResponse ?? this.getAllHistoryResponse
    );
   }

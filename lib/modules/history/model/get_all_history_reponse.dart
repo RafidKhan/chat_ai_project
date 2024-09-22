@@ -47,8 +47,8 @@ class GetAllHistoryResponse {
 
 class History {
   String? id;
-  User? userId;
-  String? promptId;
+  UserId? userId;
+  PromptId? promptId;
   String? request;
   String? response;
   DateTime? createdAt;
@@ -68,8 +68,8 @@ class History {
 
   History copyWith({
     String? id,
-    User? userId,
-    String? promptId,
+    UserId? userId,
+    PromptId? promptId,
     String? request,
     String? response,
     DateTime? createdAt,
@@ -93,8 +93,8 @@ class History {
 
   factory History.fromMap(Map<String, dynamic> json) => History(
     id: json["_id"],
-    userId: User.fromMap(json["userId"]),
-    promptId: json["promptId"],
+    userId: UserId.fromMap(json["userId"]),
+    promptId: json["promptId"] == null ? null : PromptId.fromMap(json["promptId"]),
     request: json["request"],
     response: json["response"],
     createdAt: DateTime.parse(json["createdAt"]),
@@ -105,7 +105,7 @@ class History {
   Map<String, dynamic> toMap() => {
     "_id": id,
     "userId": userId!.toMap(),
-    "promptId": promptId,
+    "promptId": promptId!.toMap(),
     "request": request,
     "response": response,
     "createdAt": createdAt!.toIso8601String(),
@@ -114,14 +114,155 @@ class History {
   };
 }
 
-class User {
+class PromptId {
+  String? categoryId;
+  String? tagId;
+  TargetLanguage? targetLanguage;
   String? id;
-  String? firstName;
-  String? lastName;
-  String? email;
+  String? title;
+  String? subTitle;
+  String? description;
+  String? shortDescription;
+  String? icon;
+  String? backgroundImage;
+  String? aiType;
+  PackageType? packageType;
+  String? prompt;
+  bool? isActive;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
+
+  PromptId({
+    this.categoryId,
+    this.tagId,
+    this.targetLanguage,
+    this.id,
+    this.title,
+    this.subTitle,
+    this.description,
+    this.shortDescription,
+    this.icon,
+    this.backgroundImage,
+    this.aiType,
+    this.packageType,
+    this.prompt,
+    this.isActive,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
+
+  PromptId copyWith({
+    String? categoryId,
+    String? tagId,
+    TargetLanguage? targetLanguage,
+    String? id,
+    String? title,
+    String? subTitle,
+    String? description,
+    String? shortDescription,
+    String? icon,
+    String? backgroundImage,
+    String? aiType,
+    PackageType? packageType,
+    String? prompt,
+    bool? isActive,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    int? v,
+  }) =>
+      PromptId(
+        categoryId: categoryId ?? this.categoryId,
+        tagId: tagId ?? this.tagId,
+        targetLanguage: targetLanguage ?? this.targetLanguage,
+        id: id ?? this.id,
+        title: title ?? this.title,
+        subTitle: subTitle ?? this.subTitle,
+        description: description ?? this.description,
+        shortDescription: shortDescription ?? this.shortDescription,
+        icon: icon ?? this.icon,
+        backgroundImage: backgroundImage ?? this.backgroundImage,
+        aiType: aiType ?? this.aiType,
+        packageType: packageType ?? this.packageType,
+        prompt: prompt ?? this.prompt,
+        isActive: isActive ?? this.isActive,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        v: v ?? this.v,
+      );
+
+  factory PromptId.fromJson(String str) => PromptId.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory PromptId.fromMap(Map<String, dynamic> json) => PromptId(
+    categoryId: json["categoryId"],
+    tagId: json["tagId"],
+    targetLanguage: targetLanguageValues.map[json["targetLanguage"]],
+    id: json["_id"],
+    title: json["title"],
+    subTitle: json["subTitle"],
+    description: json["description"],
+    shortDescription: json["shortDescription"],
+    icon: json["icon"],
+    backgroundImage: json["backgroundImage"],
+    aiType: json["aiType"],
+    packageType: packageTypeValues.map[json["packageType"]],
+    prompt: json["prompt"],
+    isActive: json["isActive"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "categoryId": categoryId,
+    "tagId": tagId,
+    "targetLanguage": targetLanguageValues.reverse[targetLanguage],
+    "_id": id,
+    "title": title,
+    "subTitle": subTitle,
+    "description": description,
+    "shortDescription": shortDescription,
+    "icon": icon,
+    "backgroundImage": backgroundImage,
+    "aiType": aiType,
+    "packageType": packageTypeValues.reverse[packageType],
+    "prompt": prompt,
+    "isActive": isActive,
+    "createdAt": createdAt!.toIso8601String(),
+    "updatedAt": updatedAt!.toIso8601String(),
+    "__v": v,
+  };
+}
+
+enum PackageType {
+  FREE,
+  PAID
+}
+
+final packageTypeValues = EnumValues({
+  "FREE": PackageType.FREE,
+  "PAID": PackageType.PAID
+});
+
+enum TargetLanguage {
+  EN
+}
+
+final targetLanguageValues = EnumValues({
+  "en": TargetLanguage.EN
+});
+
+class UserId {
+  Id? id;
+  FirstName? firstName;
+  LastName? lastName;
+  Email? email;
   String? phoneNumber;
-  String? password;
-  String? userType;
+  Password? password;
+  UserType? userType;
   String? dateOfBirth;
   String? profilePictureUrl;
   bool? isActive;
@@ -130,9 +271,9 @@ class User {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;
-  String? fullName;
+  FullName? fullName;
 
-  User({
+  UserId({
     this.id,
     this.firstName,
     this.lastName,
@@ -151,14 +292,14 @@ class User {
     this.fullName,
   });
 
-  User copyWith({
-    String? id,
-    String? firstName,
-    String? lastName,
-    String? email,
+  UserId copyWith({
+    Id? id,
+    FirstName? firstName,
+    LastName? lastName,
+    Email? email,
     String? phoneNumber,
-    String? password,
-    String? userType,
+    Password? password,
+    UserType? userType,
     String? dateOfBirth,
     String? profilePictureUrl,
     bool? isActive,
@@ -167,9 +308,9 @@ class User {
     DateTime? createdAt,
     DateTime? updatedAt,
     int? v,
-    String? fullName,
+    FullName? fullName,
   }) =>
-      User(
+      UserId(
         id: id ?? this.id,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
@@ -188,18 +329,18 @@ class User {
         fullName: fullName ?? this.fullName,
       );
 
-  factory User.fromJson(String str) => User.fromMap(json.decode(str));
+  factory UserId.fromJson(String str) => UserId.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory User.fromMap(Map<String, dynamic> json) => User(
-    id: json["_id"],
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    email: json["email"],
+  factory UserId.fromMap(Map<String, dynamic> json) => UserId(
+    id: idValues.map[json["_id"]],
+    firstName: firstNameValues.map[json["firstName"]],
+    lastName: lastNameValues.map[json["lastName"]],
+    email: emailValues.map[json["email"]],
     phoneNumber: json["phoneNumber"],
-    password: json["password"],
-    userType: json["userType"],
+    password: passwordValues.map[json["password"]],
+    userType: userTypeValues.map[json["userType"]],
     dateOfBirth: json["dateOfBirth"],
     profilePictureUrl: json["profilePictureUrl"],
     isActive: json["isActive"],
@@ -208,17 +349,17 @@ class User {
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
     v: json["__v"],
-    fullName: json["fullName"],
+    fullName: fullNameValues.map[json["fullName"]],
   );
 
   Map<String, dynamic> toMap() => {
-    "_id": id,
-    "firstName": firstName,
-    "lastName": lastName,
-    "email": email,
+    "_id": idValues.reverse[id],
+    "firstName": firstNameValues.reverse[firstName],
+    "lastName": lastNameValues.reverse[lastName],
+    "email": emailValues.reverse[email],
     "phoneNumber": phoneNumber,
-    "password": password,
-    "userType": userType,
+    "password": passwordValues.reverse[password],
+    "userType": userTypeValues.reverse[userType],
     "dateOfBirth": dateOfBirth,
     "profilePictureUrl": profilePictureUrl,
     "isActive": isActive,
@@ -227,6 +368,74 @@ class User {
     "createdAt": createdAt!.toIso8601String(),
     "updatedAt": updatedAt!.toIso8601String(),
     "__v": v,
-    "fullName": fullName,
+    "fullName": fullNameValues.reverse[fullName],
   };
+}
+
+enum Email {
+  ABUL_GMAIL_COM
+}
+
+final emailValues = EnumValues({
+  "abul@gmail.com": Email.ABUL_GMAIL_COM
+});
+
+enum FirstName {
+  ABUL
+}
+
+final firstNameValues = EnumValues({
+  "Abul": FirstName.ABUL
+});
+
+enum FullName {
+  EMPTY
+}
+
+final fullNameValues = EnumValues({
+  " ": FullName.EMPTY
+});
+
+enum Id {
+  THE_667_ADCB6_C9_D9_F5_B4_F54735_B8
+}
+
+final idValues = EnumValues({
+  "667adcb6c9d9f5b4f54735b8": Id.THE_667_ADCB6_C9_D9_F5_B4_F54735_B8
+});
+
+enum LastName {
+  MIA
+}
+
+final lastNameValues = EnumValues({
+  "Mia": LastName.MIA
+});
+
+enum Password {
+  THE_2_A_103_H_BX_H4_HO_N5_XWFN_SWVH_GIQZ6_D_AG_K_XG_GDT4_OK4_MKQ_M_IBXHJ_RK_NG
+}
+
+final passwordValues = EnumValues({
+  "\u00242a\u002410\u00243.h.bxH4Ho/N5XWFNSwvh.Giqz6dAgKXgGDT4OK4mkqMIbxhjRkNG": Password.THE_2_A_103_H_BX_H4_HO_N5_XWFN_SWVH_GIQZ6_D_AG_K_XG_GDT4_OK4_MKQ_M_IBXHJ_RK_NG
+});
+
+enum UserType {
+  USER
+}
+
+final userTypeValues = EnumValues({
+  "USER": UserType.USER
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

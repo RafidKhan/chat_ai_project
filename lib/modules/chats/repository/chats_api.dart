@@ -1,7 +1,6 @@
 import 'package:chat_on/constant/app_url.dart';
 import 'package:chat_on/utils/enum.dart';
 import 'package:dio/dio.dart';
-
 import '/data_provider/api_client.dart';
 
 class ChatsApi {

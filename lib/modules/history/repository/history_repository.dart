@@ -8,7 +8,7 @@ class HistoryRepository implements IHistoryRepository {
   @override
   Future<void> getAllHistory({required Function(GetAllHistoryResponse response) onSuccess})
   async{
-    await _api.getAllHistory(onSuccess: (response){
+    await _api.getAllHistory(response: (response){
       onSuccess(GetAllHistoryResponse.fromMap(response.data));
     });
   }

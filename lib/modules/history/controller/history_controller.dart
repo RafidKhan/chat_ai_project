@@ -1,12 +1,11 @@
 import 'package:chat_on/modules/history/controller/state/history_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../model/get_all_history_reponse.dart';
 import '../repository/history_interface.dart';
 import '../repository/history_repository.dart';
 
 final historyController =
-StateNotifierProvider<HistoryController,HistoryState>(
+StateNotifierProvider<HistoryController, HistoryState>(
         (ref) => HistoryController());
 
 class HistoryController  extends StateNotifier<HistoryState>{
@@ -16,9 +15,9 @@ class HistoryController  extends StateNotifier<HistoryState>{
 
    Future<void> getAllHistory() async{
        state = state.copyWith(isLoading: true);
-       await _historyRepository.getAllHistory(onSuccess: (onSuccess){
-       state = state.copyWith(getAllHistoryResponse: onSuccess);
-    });
+       await _historyRepository.getAllHistory(onSuccess: (response){
+         state = state.copyWith(getAllHistoryResponse: response);
+       });
      state = state.copyWith(isLoading: false);
    }
   }
