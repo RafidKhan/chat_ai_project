@@ -34,6 +34,7 @@ enum AppConstant {
   FONTFAMILY,
   IMAGE_URL_IS,
   FILES,
+  AVAILABLE_TOKEN,
 }
 
 extension AppConstantExtention on AppConstant {
@@ -109,6 +110,8 @@ extension AppConstantExtention on AppConstant {
         return 'Image Url Is:';
       case AppConstant.FILES:
         return 'FILES';
+      case AppConstant.AVAILABLE_TOKEN:
+        return "available_token";
 
       default:
         return "";

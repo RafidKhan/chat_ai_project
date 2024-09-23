@@ -1,6 +1,5 @@
 import 'package:chat_on/modules/auth/sign_in/repository/sign_in_api.dart';
 
-import '../../../../global/model/global_response.dart';
 import '../model/login_response.dart';
 import '../model/sign_in_request.dart';
 import 'sign_in_interface.dart';
