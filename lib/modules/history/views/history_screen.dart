@@ -57,6 +57,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: state.getAllHistoryResponse!.data!.length,
+                reverse: true,
                 separatorBuilder: (context, index) {
                   return SizedBox(
                     height: 10.h,
@@ -67,8 +68,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                    final model = HistoryItemModel(
                     title: item.request!,
                     dateTime: DateFormat("dd-MMM-yyyy").format(item.createdAt!),
+                     promptId: item.promptId?.id!,
+                     promptResponse: item.response,
                   );
-                  return HistoryItem(
+                  return item.promptId != null ? HistoryItem(
                     itemModel: model,
                     onMenuTap: () {
                       ViewUtil.bottomSheet(
@@ -78,7 +81,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         ),
                       );
                     },
-                  );
+                  ) : SizedBox();
                 },
               ),
             ],

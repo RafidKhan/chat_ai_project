@@ -5,6 +5,7 @@ class LoginResponse {
   int? status;
   String? token;
   int? availableToken;
+  String? userType;
 
   LoginResponse({
     this.message,
@@ -12,6 +13,7 @@ class LoginResponse {
     this.status,
     this.token,
     this.availableToken,
+    this.userType,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
@@ -20,6 +22,7 @@ class LoginResponse {
     status: json["status"],
     token: json["token"],
     availableToken: json["availableToken"],
+    userType: json["userType"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,5 +31,6 @@ class LoginResponse {
     "status": status,
     "token": token,
     "availableToken" : availableToken,
+    "userType" : userType,
   };
 }

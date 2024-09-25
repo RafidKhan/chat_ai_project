@@ -2,7 +2,7 @@ class PromptRequest {
   final String? promptId;
 
   //final String? type;
-  //final bool? stream;
+  final bool? stream;
   final String? customPrompt;
   final String? fileUrl;
 
@@ -12,7 +12,7 @@ class PromptRequest {
   const PromptRequest({
     this.promptId,
     //this.type,
-    //this.stream,
+    this.stream,
     this.customPrompt,
     this.fileUrl,
     //this.voice,
@@ -22,9 +22,9 @@ class PromptRequest {
   factory PromptRequest.fromJson(Map<String, dynamic> json) => PromptRequest(
         promptId: json["promptId"] as String?,
         //type: json["type"] as String?,
-        //stream: json["stream"] as bool?,
+        stream: json["stream"] as bool?,
         customPrompt: json["customPrompt"] as String?,
-    fileUrl: json["customFileUrl"] as String?,
+        fileUrl: json["customFileUrl"] as String?,
         //voice: json["voice"] as String?,
         //size: json["size"] as String?,
       );
@@ -32,7 +32,7 @@ class PromptRequest {
   Map<String, dynamic> toJson() {
     final map = {
       //"type": type,
-      //"stream": stream,
+      "stream": false,
       "customPrompt": customPrompt,
       //"voice": voice,
       //"size": size,

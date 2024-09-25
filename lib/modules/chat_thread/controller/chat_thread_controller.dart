@@ -11,6 +11,7 @@ import 'package:chat_on/utils/view_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import '../../../data_provider/pref_helper.dart';
 import '../../../global/controllers/global_attempt_available_controller.dart';
 import '../repository/chat_thread_interface.dart';
 import '../repository/chat_thread_repository.dart';
@@ -20,7 +21,7 @@ final chatThreadController =
         (ref) => ChatThreadController());
 
 class ChatThreadController extends StateNotifier<ChatThreadState> {
-  final IChatThreadRepository _chatthreadRepository = ChatThreadRepository();
+  final IChatThreadRepository _chatThreadRepository = ChatThreadRepository();
 
   ChatThreadController()
       : super(
@@ -94,7 +95,7 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
       state = state.copyWith(threads: [...state.threads, chat]);
       clearTexts(context);
       state = state.copyWith(isReplyLoading: true);
-      await _chatthreadRepository.chatWithAi(
+      await _chatThreadRepository.chatWithAi(
         params: PromptRequest(
           promptId: state.promptId,
           customPrompt: prompt,
@@ -104,8 +105,7 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
           state = state.copyWith(isReplyLoading: false);
           final replyFromBot = response.message?.text;
           if (replyFromBot != null) {
-            final stc = context.read(attemptController.notifier);
-            stc.reduceToken();
+            reduceFreeToken(context);
             final chat = ChatThreadModel(
               userType: ChatUserType.USER_BOT,
               promptId: state.promptId,
@@ -124,7 +124,7 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
     required Function(String imageUrl) onSuccessFunction,
   }) async {
     ViewUtil.showLoader();
-    await _chatthreadRepository.uploadImage(
+    await _chatThreadRepository.uploadImage(
       imageFile: state.imageFile!,
       onSuccess: (response) {
         Navigation.pop(context);
@@ -203,4 +203,25 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
     }
   }
 
+  loadHistory({String? message,String? promptId, String? response}) {
+    final userChat = ChatThreadModel(
+      userType: ChatUserType.USER_ME,
+      promptId: state.promptId,
+      prompt: message!,
+    );
+    final responseChat = ChatThreadModel(
+      userType: ChatUserType.USER_BOT,
+      promptId: state.promptId,
+      prompt: response!,
+    );
+    state = state.copyWith(threads: [userChat,responseChat]);
+  }
+
+  reduceFreeToken(BuildContext context) async{
+    final userType =  await PrefHelper.getString(AppConstant.USER_TYPE.key);
+    if(userType == "Free"){
+      final stc = context.read(attemptController.notifier);
+      stc.reduceToken();
+    }
+  }
 }

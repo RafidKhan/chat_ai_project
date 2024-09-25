@@ -32,9 +32,13 @@ class _ChatThreadScreenState extends State<ChatThreadScreen> {
     final controller = context.read(chatThreadController.notifier);
     Future(() {
       controller.setPromptId(widget.model.promptId);
-      controller.setDefaultPrompt(widget.model.customPrompt);
-      if (widget.model.imageFile != null) {
-        controller.setImageFile(widget.model.imageFile!);
+      if(widget.model.promptResponse != null){
+        controller.loadHistory(promptId: widget.model.promptId,response: widget.model.promptResponse,message: widget.model.customPrompt);
+      }else{
+        controller.setDefaultPrompt(widget.model.customPrompt);
+        if (widget.model.imageFile != null) {
+          controller.setImageFile(widget.model.imageFile!);
+        }
       }
     });
   }

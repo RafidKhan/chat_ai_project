@@ -35,6 +35,7 @@ enum AppConstant {
   IMAGE_URL_IS,
   FILES,
   AVAILABLE_TOKEN,
+  USER_TYPE,
 }
 
 extension AppConstantExtention on AppConstant {
@@ -112,6 +113,8 @@ extension AppConstantExtention on AppConstant {
         return 'FILES';
       case AppConstant.AVAILABLE_TOKEN:
         return "available_token";
+      case AppConstant.USER_TYPE:
+        return "user_type";
 
       default:
         return "";

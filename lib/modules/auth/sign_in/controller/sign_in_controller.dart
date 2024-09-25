@@ -70,6 +70,7 @@ class SignInController extends StateNotifier<SignInState> {
       onSuccess: (response) async {
         Navigation.pop(context);
         await PrefHelper.setInt(AppConstant.AVAILABLE_TOKEN.key, response.availableToken!);
+        await PrefHelper.setString(AppConstant.USER_TYPE.key, response.userType!);
         await PrefHelper.setString(AppConstant.TOKEN.key, response.token ?? "")
             .then((e) {
           Navigation.pushAndRemoveUntil(

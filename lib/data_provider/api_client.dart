@@ -12,8 +12,10 @@ import 'package:chat_on/utils/navigation.dart';
 import 'package:chat_on/utils/network_connection.dart';
 import 'package:chat_on/utils/view_util.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiClient {
   final Dio _dio = Dio();
@@ -38,20 +40,26 @@ class ApiClient {
   }
 
   void _initInterceptors() {
-    _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
-      debugPrint(
-          'REQUEST[${options.method}] => PATH: ${AppUrl.base.url}${options.path} '
-          '=> Request Values: param: ${options.queryParameters}, DATA: ${options.data}, => _HEADERS: ${options.headers}');
-      return handler.next(options);
-    }, onResponse: (response, handler) {
-      (
-          'RESPONSE[${response.statusCode}] => DATA: ${jsonEncode(response.data)} URL: ${response.requestOptions.baseUrl}${response.requestOptions.path}').log();
-      return handler.next(response);
-    }, onError: (err, handler) {
-      debugPrint(
-          'ERROR[${err.response?.statusCode}] => DATA: ${err.response?.data} Message: ${err.message} URL: ${err.response?.requestOptions.baseUrl}${err.response?.requestOptions.path}');
-      return handler.next(err);
-    }));
+    _dio.interceptors.add(PrettyDioLogger(
+    requestHeader: !kReleaseMode,
+      requestBody: !kReleaseMode,
+          responseBody: !kReleaseMode,
+    ));
+
+    // _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+    //   debugPrint(
+    //       'REQUEST[${options.method}] => PATH: ${AppUrl.base.url}${options.path} '
+    //       '=> Request Values: param: ${options.queryParameters}, DATA: ${options.data}, => _HEADERS: ${options.headers}');
+    //   return handler.next(options);
+    // }, onResponse: (response, handler) {
+    //   (
+    //       'RESPONSE[${response.statusCode}] => DATA: ${jsonEncode(response.data)} URL: ${response.requestOptions.baseUrl}${response.requestOptions.path}').log();
+    //   return handler.next(response);
+    // }, onError: (err, handler) {
+    //   debugPrint(
+    //       'ERROR[${err.response?.statusCode}] => DATA: ${err.response?.data} Message: ${err.message} URL: ${err.response?.requestOptions.baseUrl}${err.response?.requestOptions.path}');
+    //   return handler.next(err);
+    // }));
   }
 
   // Image or file upload using Rest handle.
