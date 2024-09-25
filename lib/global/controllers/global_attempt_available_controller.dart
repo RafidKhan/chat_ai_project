@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constant/constant_key.dart';
 import '../../data_provider/pref_helper.dart';
 
-final attemptController = StateNotifierProvider.autoDispose<AttemptController, AttemptState>(
+final attemptController = StateNotifierProvider<AttemptController, AttemptState>(
         (ref) => AttemptController());
 
 class AttemptController extends StateNotifier<AttemptState> {
@@ -11,19 +11,19 @@ class AttemptController extends StateNotifier<AttemptState> {
   AttemptController()
       : super(
      AttemptState(
-      availableToken: 0,
+      availableToken: 20,
     ),
   );
-
 
   void getAvailableToken() async{
    final limit =  await PrefHelper.getInt(AppConstant.AVAILABLE_TOKEN.key);
    state = state.copyWith(availableToken: limit);
   }
 
-  void reduceToken(int index) {
+  void reduceToken() async{
     if(state.availableToken! > 0){
       state = state.copyWith(availableToken: state.availableToken! - 1);
+      PrefHelper.setInt(AppConstant.AVAILABLE_TOKEN.key, state.availableToken!);
     }
   }
 }

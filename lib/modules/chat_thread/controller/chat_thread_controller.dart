@@ -11,7 +11,7 @@ import 'package:chat_on/utils/view_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-
+import '../../../global/controllers/global_attempt_available_controller.dart';
 import '../repository/chat_thread_interface.dart';
 import '../repository/chat_thread_repository.dart';
 
@@ -102,9 +102,10 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
         ),
         onSuccess: (response) {
           state = state.copyWith(isReplyLoading: false);
-
           final replyFromBot = response.message?.text;
           if (replyFromBot != null) {
+            final stc = context.read(attemptController.notifier);
+            stc.reduceToken();
             final chat = ChatThreadModel(
               userType: ChatUserType.USER_BOT,
               promptId: state.promptId,
@@ -201,4 +202,5 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
       });
     }
   }
+
 }

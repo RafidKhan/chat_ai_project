@@ -1,5 +1,4 @@
 import 'package:chat_on/constant/app_url.dart';
-import 'package:chat_on/modules/auth/sign_in/model/sign_in_request.dart';
 import 'package:chat_on/utils/enum.dart';
 import 'package:dio/dio.dart';
 
