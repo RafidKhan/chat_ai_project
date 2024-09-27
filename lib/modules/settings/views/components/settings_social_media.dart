@@ -6,6 +6,7 @@ import 'package:chat_on/utils/styles/k_assets.dart';
 import 'package:chat_on/utils/styles/k_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingSocialMedia extends StatelessWidget {
   const SettingSocialMedia({super.key});
@@ -15,27 +16,27 @@ class SettingSocialMedia extends StatelessWidget {
     final List<SettingsSocialMediaModel> items = [
       SettingsSocialMediaModel(
         title: context.loc.instagram,
-        url: "",
+        url: "https://www.instagram.com/",
         icon: KAssetName.instagramWhitePng.imagePath,
       ),
       SettingsSocialMediaModel(
         title: context.loc.x,
-        url: "",
+        url: "https://x.com/",
         icon: KAssetName.twitterWhitePng.imagePath,
       ),
       SettingsSocialMediaModel(
         title: context.loc.tiktok,
-        url: "",
+        url: "https://www.tiktok.com/explore",
         icon: KAssetName.tiktokWhitePng.imagePath,
       ),
       SettingsSocialMediaModel(
         title: context.loc.linkedin,
-        url: "",
+        url: "https://www.linkedin.com/",
         icon: KAssetName.linkedinWhitePng.imagePath,
       ),
       SettingsSocialMediaModel(
         title: context.loc.youtube,
-        url: "",
+        url: "https://www.youtube.com/",
         icon: KAssetName.youtubeWhitePng.imagePath,
       ),
     ];
@@ -46,7 +47,11 @@ class SettingSocialMedia extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: items.map((e) {
           return InkWell(
-            onTap: () {},
+            onTap: () async{
+              if (!await launchUrl(Uri.parse(e.url))) {
+              throw Exception('Could not launch');
+              }
+            },
             child: Container(
               margin: EdgeInsets.only(right: 10.w),
               child: Column(

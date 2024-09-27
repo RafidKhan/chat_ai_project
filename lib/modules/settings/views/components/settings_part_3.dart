@@ -7,6 +7,9 @@ import 'package:chat_on/utils/navigation.dart';
 import 'package:chat_on/utils/styles/k_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../utils/launch_url.dart';
 
 class SettingsPart3 extends StatelessWidget {
   const SettingsPart3({super.key});
@@ -27,7 +30,11 @@ class SettingsPart3 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () async{
+              if (!await launchUrl(Uri.parse("https://www.google.com/"))) {
+                throw Exception('Could not launch');
+              }
+            },
             child: GlobalText(
               str: context.loc.manage_subscription,
               color: KColor.white.color,
@@ -37,7 +44,11 @@ class SettingsPart3 extends StatelessWidget {
           ),
           const GlobalDivider(),
           InkWell(
-            onTap: () {},
+            onTap: () async{
+              if (!await launchUrl(Uri.parse("https://www.google.com/"))) {
+                throw Exception('Could not launch');
+              }
+            },
             child: GlobalText(
               str: context.loc.terms_of_use,
               color: KColor.white.color,
@@ -47,7 +58,11 @@ class SettingsPart3 extends StatelessWidget {
           ),
           const GlobalDivider(),
           InkWell(
-            onTap: () {},
+            onTap: () async{
+              if (!await launchUrl(Uri.parse("https://www.google.com/"))) {
+                throw Exception('Could not launch');
+              }
+            },
             child: GlobalText(
               str: context.loc.privacy_policy,
               color: KColor.white.color,
@@ -57,7 +72,11 @@ class SettingsPart3 extends StatelessWidget {
           ),
           const GlobalDivider(),
           InkWell(
-            onTap: () {},
+            onTap: () async{
+              if (!await launchUrl(Uri.parse("https://www.google.com/"))) {
+                throw Exception('Could not launch');
+              }
+            },
             child: GlobalText(
               str: context.loc.contact_us,
               color: KColor.white.color,
@@ -67,7 +86,11 @@ class SettingsPart3 extends StatelessWidget {
           ),
           const GlobalDivider(),
           InkWell(
-            onTap: () {},
+            onTap: () async{
+              if (!await launchUrl(Uri.parse("https://www.google.com/"))) {
+                throw Exception('Could not launch');
+              }
+            },
             child: GlobalText(
               str: context.loc.rate_us,
               color: KColor.white.color,

@@ -4,7 +4,6 @@ import 'package:chat_on/utils/extension.dart';
 import 'package:chat_on/utils/styles/k_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '/global/widget/global_appbar.dart';
 import '/global/widget/global_text.dart';
 import 'components/settings_part_3.dart';
@@ -29,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const WhatIsNew(),
+              //const WhatIsNew(),
               SizedBox(
                 height: 20.h,
               ),
@@ -37,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-              const SettingsPart3(),
+             const SettingsPart3(),
               SizedBox(
                 height: 20.h,
               ),
@@ -50,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              const SettingSocialMedia(),
+             const SettingSocialMedia(),
             ],
           ),
         ),

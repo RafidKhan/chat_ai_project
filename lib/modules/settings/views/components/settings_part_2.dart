@@ -44,45 +44,45 @@ class SettingsPart2 extends StatelessWidget {
               ],
             ),
           ),
-          const GlobalDivider(),
-          Row(
-            children: [
-              Expanded(
-                child: GlobalText(
-                  str: context.loc.haptic_feedback,
-                  color: KColor.white.color,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              GlobalSwitch(
-                value: false,
-                onToggle: (value) {},
-              ),
-            ],
-          ),
-          const GlobalDivider(),
-          Row(
-            children: [
-              Expanded(
-                child: GlobalText(
-                  str: context.loc.follow_up_questions,
-                  color: KColor.white.color,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              GlobalSwitch(
-                value: true,
-                onToggle: (value) {},
-              ),
-            ],
-          ),
-          const GlobalDivider(),
-          GlobalText(
-            str: context.loc.keep_your_chat_going,
-            color: KColor.greyText.color,
-          ),
+          // const GlobalDivider(),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: GlobalText(
+          //         str: context.loc.haptic_feedback,
+          //         color: KColor.white.color,
+          //         fontSize: 16,
+          //         fontWeight: FontWeight.w600,
+          //       ),
+          //     ),
+          //     GlobalSwitch(
+          //       value: false,
+          //       onToggle: (value) {},
+          //     ),
+          //   ],
+          // ),
+          // const GlobalDivider(),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: GlobalText(
+          //         str: context.loc.follow_up_questions,
+          //         color: KColor.white.color,
+          //         fontSize: 16,
+          //         fontWeight: FontWeight.w600,
+          //       ),
+          //     ),
+          //     GlobalSwitch(
+          //       value: true,
+          //       onToggle: (value) {},
+          //     ),
+          //   ],
+          // ),
+          // const GlobalDivider(),
+          // GlobalText(
+          //   str: context.loc.keep_your_chat_going,
+          //   color: KColor.greyText.color,
+          // ),
         ],
       ),
     );
