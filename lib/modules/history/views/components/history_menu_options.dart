@@ -12,10 +12,14 @@ import 'delete_history_dialog.dart';
 
 class HistoryMenuOptions extends StatelessWidget {
   final HistoryItemModel itemModel;
+  final String historyId;
+  final int index;
 
   const HistoryMenuOptions({
     super.key,
     required this.itemModel,
+    required this.historyId,
+    required this.index
   });
 
   @override
@@ -30,30 +34,6 @@ class HistoryMenuOptions extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           MenuOption(
-            title: context.loc.rename,
-            icon: Icons.edit,
-            color: KColor.white.color,
-            onTap: () {
-              Navigation.pop(context);
-              Future.delayed(const Duration(milliseconds: 200), () {
-                ViewUtil.bottomSheet(
-                  context: context,
-                  content: HistoryItemRename(
-                    itemModel: itemModel,
-                  ),
-                );
-              });
-            },
-          ),
-          Container(
-            width: context.width,
-            height: 0.2.h,
-            color: KColor.white.color,
-            margin: EdgeInsets.symmetric(
-              vertical: 5.h,
-            ),
-          ),
-          MenuOption(
             title: context.loc.delete,
             icon: Icons.delete,
             color: KColor.red.color,
@@ -64,6 +44,8 @@ class HistoryMenuOptions extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   content: DeleteHistoryDialog(
                     itemModel: itemModel,
+                    historyId: historyId,
+                    index: index,
                   ),
                 );
               });

@@ -18,5 +18,14 @@ class HistoryApi {
         isPopGlobalDialog: false,
     );
   }
+
+  Future deleteHistoryById({
+    required String historyId,
+    required Function(Response response) response}) async{
+    await _apiClient.request(
+        url: AppUrl.allHistory.url + "/$historyId",
+        method: Method.POST,
+        onSuccessFunction: response);
+  }
 }
 

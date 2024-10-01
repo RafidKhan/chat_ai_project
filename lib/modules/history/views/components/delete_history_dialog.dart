@@ -7,12 +7,18 @@ import 'package:chat_on/utils/styles/k_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../controller/history_controller.dart';
+
 class DeleteHistoryDialog extends StatelessWidget {
   final HistoryItemModel itemModel;
+  final String historyId;
+  final int index;
 
   const DeleteHistoryDialog({
     super.key,
     required this.itemModel,
+    required this.historyId,
+    required this.index,
   });
 
   @override
@@ -76,7 +82,11 @@ class DeleteHistoryDialog extends StatelessWidget {
                     child: GlobalButton(
                       buttonText: context.loc.yes,
                       btnBackgroundActiveColor: KColor.red.color,
-                      onPressed: () {},
+                      onPressed: () async{
+                        Navigation.pop(context);
+                        final controller = context.read(historyController.notifier);
+                        await controller.deleteHistoryById(historyId,index);
+                      },
                     ),
                   ),
                 ],

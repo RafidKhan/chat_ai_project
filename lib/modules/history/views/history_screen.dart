@@ -66,8 +66,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 itemBuilder: (context, index) {
                   var item = state.getAllHistoryResponse!.data![index];
                    final model = HistoryItemModel(
-                    title: item.request!,
-                    dateTime: DateFormat("dd-MMM-yyyy").format(item.createdAt!),
+                     title: item.request!,
+                     dateTime: DateFormat("dd-MMM-yyyy").format(item.createdAt!),
                      promptId: item.promptId?.id!,
                      promptResponse: item.response,
                   );
@@ -78,10 +78,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         context: context,
                         content: HistoryMenuOptions(
                           itemModel: model,
+                          historyId: item.id!,
+                          index: index,
                         ),
                       );
                     },
-                  ) : SizedBox();
+                  ) : const SizedBox();
                 },
               ),
             ],
