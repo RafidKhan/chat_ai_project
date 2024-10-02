@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../modules/chat_thread/model/chat_thread_nav_model.dart';
+import '../../modules/dashboard/views/components/bottom_sheet.dart';
 import '../../utils/app_routes.dart';
 import '../../utils/navigation.dart';
 
@@ -34,31 +35,31 @@ class HomeTypeQuestionComponent extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: InkWell(
-                      onTap: (){
-                        Navigation.push(
-                          context,
-                          appRoutes: AppRoutes.chatThread,
-                          arguments: const ChatThreadNavModel(
-                            promptId: null,
-                            customPrompt: null,
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.w,
-                          vertical: 12.h,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                        vertical: 12.h,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(
+                          color: KColor.accent2.color,
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.r),
-                          border: Border.all(
-                            color: KColor.accent2.color,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
+                      ),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              Navigation.push(
+                                context,
+                                appRoutes: AppRoutes.chatThread,
+                                arguments: const ChatThreadNavModel(
+                                  promptId: null,
+                                  customPrompt: null,
+                                ),
+                              );
+                            },
+                            child: Expanded(
                               child: GlobalText(
                                 str: state.isListeningSpeech
                                     ? context.loc.listening
@@ -68,18 +69,23 @@ class HomeTypeQuestionComponent extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            if (!state.isListeningSpeech) ...[
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              GlobalImageLoader(
+                          ),
+                          if (!state.isListeningSpeech) ...[
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            InkWell(
+                              onTap: (){
+                                CustomBottomSheet.showCustomBottomSheet(context);
+                              },
+                              child: GlobalImageLoader(
                                 imagePath: KAssetName.icScanPng.imagePath,
                                 height: 20.h,
                                 color: KColor.white.color,
                               ),
-                            ],
+                            ),
                           ],
-                        ),
+                        ],
                       ),
                     ),
                   ),

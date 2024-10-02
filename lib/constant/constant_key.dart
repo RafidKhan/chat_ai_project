@@ -36,6 +36,8 @@ enum AppConstant {
   FILES,
   AVAILABLE_TOKEN,
   USER_TYPE,
+  IMAGE_TO_TEXT_KEY,
+  SPEECH_TO_TEXT_KEY,
 }
 
 extension AppConstantExtention on AppConstant {
@@ -115,6 +117,10 @@ extension AppConstantExtention on AppConstant {
         return "available_token";
       case AppConstant.USER_TYPE:
         return "user_type";
+      case AppConstant.IMAGE_TO_TEXT_KEY:
+        return "image_to_text";
+      case AppConstant.SPEECH_TO_TEXT_KEY:
+        return "speech_to_text";
 
       default:
         return "";

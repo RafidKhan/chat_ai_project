@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chat_on/constant/constant_key.dart';
 import 'package:chat_on/global/widget/global_image_loader.dart';
 import 'package:chat_on/modules/chat_thread/model/chat_thread_model.dart';
@@ -31,8 +32,8 @@ class ChatThreadsSection extends StatelessWidget with GlobalMixin {
               reverse: true,
               itemBuilder: (context, index) {
                 final chat = threads[index];
-
                 return ChatBubble(
+                  isAnimate: index == 0,
                   model: chat,
                   onTapCopy: () {
                     Clipboard.setData(
@@ -69,6 +70,7 @@ class ChatBubble extends StatelessWidget {
   final VoidCallback? onTapCopy;
   final VoidCallback? onTapShare;
   final VoidCallback? onTapReask;
+  final bool isAnimate;
 
   const ChatBubble({
     super.key,
@@ -76,6 +78,7 @@ class ChatBubble extends StatelessWidget {
     this.onTapCopy,
     this.onTapShare,
     this.onTapReask,
+    required this.isAnimate,
   });
 
   @override
@@ -119,12 +122,27 @@ class ChatBubble extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              GlobalText(
-                str: promptText,
-                color: isMe ? KColor.white.color : KColor.black.color,
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
+             !isMe && isAnimate
+                  ? AnimatedTextKit(
+                     isRepeatingAnimation: false,
+                      repeatForever: false,
+                      animatedTexts: [
+                        TyperAnimatedText(
+                          promptText,
+                          textStyle: TextStyle(
+                            color: KColor.black.color,
+                              fontSize: 16.0,
+                              fontFamily: AppConstant.FONTFAMILY.key,
+                              fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    )
+                  : GlobalText(
+                      str: promptText,
+                      color: isMe ? KColor.white.color : KColor.black.color,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
               if (imageUrl != null) ...[
                 SizedBox(
                   height: 5.h,

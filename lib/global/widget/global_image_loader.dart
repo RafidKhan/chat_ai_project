@@ -37,17 +37,6 @@ class GlobalImageLoader extends StatelessWidget {
           return const SizedBox.shrink();
         },
       );
-      // return Image.network(
-      //   imagePath,
-      //   height: height,
-      //   width: width,
-      //   fit: fit,
-      //   color: color,
-      //   errorBuilder: (context, exception, stackTrace) => Icon(
-      //     Icons.error,
-      //     color: KColor.red.color,
-      //   ),
-      // );
     } else if (imageFor == ImageFor.file) {
       return Image.file(File(imagePath),
           height: height,

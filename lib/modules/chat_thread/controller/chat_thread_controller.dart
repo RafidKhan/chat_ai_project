@@ -126,10 +126,19 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
     ViewUtil.showLoader();
     await _chatThreadRepository.uploadImage(
       imageFile: state.imageFile!,
-      onSuccess: (response) {
+      onSuccess: (response) async{
         Navigation.pop(context);
         removeImageFile();
         if (response.data?.url != null) {
+          await _chatThreadRepository.chatWithAi(
+              params: PromptRequest(
+                promptId: state.promptId,
+                customPrompt: "",
+                fileUrl: response.data!.url!,
+              ),
+              onSuccess: (response) {
+               state.messageController.text = response.message!.text!;
+              });
           onSuccessFunction(response.data!.url!);
         }
       },

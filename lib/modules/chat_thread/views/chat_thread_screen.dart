@@ -38,6 +38,9 @@ class _ChatThreadScreenState extends State<ChatThreadScreen> {
         controller.setDefaultPrompt(widget.model.customPrompt);
         if (widget.model.imageFile != null) {
           controller.setImageFile(widget.model.imageFile!);
+          controller.uploadImage(context, onSuccessFunction: (response){
+
+          });
         }
       }
     });

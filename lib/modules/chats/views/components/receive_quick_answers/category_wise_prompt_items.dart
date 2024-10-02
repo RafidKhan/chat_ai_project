@@ -8,6 +8,8 @@ import 'package:chat_on/utils/styles/k_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../dashboard/views/components/bottom_sheet.dart';
+
 class CategoryWisePromptItems extends StatelessWidget {
   final String categoryName;
   final List<CategoryWisePrompt> prompts;
@@ -48,6 +50,12 @@ class CategoryWisePromptItems extends StatelessWidget {
             },
             itemBuilder: (context, index) {
               final prompt = prompts[index];
+              if(prompt.aiType == "IMAGETOTEXT"){
+                CustomBottomSheet.setImageToTextPrompt(prompt.id!);
+              }
+              if(prompt.aiType == "SPEECHTOTEXT"){
+                CustomBottomSheet.setSpeechTextPrompt(prompt.id!);
+              }
               return GlobalQuestionComponent(
                 model: GlobalQuestionModel(
                   question: prompt.title ?? "",
