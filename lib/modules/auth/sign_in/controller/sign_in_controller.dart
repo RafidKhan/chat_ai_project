@@ -38,8 +38,8 @@ class SignInController extends StateNotifier<SignInState> {
       checkButtonStatus();
     });
     if(kDebugMode){
-      state.emailController.text = 'abul@gmail.com';
-      state.passwordController.text = 'Abcd123!';
+      state.emailController.text = 'shuvo@gmail.com';
+      state.passwordController.text = '123456';
     }
   }
 

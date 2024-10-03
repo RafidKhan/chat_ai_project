@@ -169,11 +169,16 @@ class ChatBubble extends StatelessWidget {
                     icon: Icons.copy,
                     onTap: onTapCopy,
                   ),
-                  ChipWidget(
-                    text: context.loc.share,
-                    icon: Icons.share,
-                    onTap: onTapShare,
-                  ),
+                  // ChipWidget(
+                  //   text: context.loc.share,
+                  //   icon: Icons.share,
+                  //   onTap: onTapShare,
+                  // ),
+                  // ChipWidget(
+                  //   text: context.loc.share,
+                  //   icon: Icons.share,
+                  //   onTap: onTapShare,
+                  // ),
                   if (isMe)
                     ChipWidget(
                       text: context.loc.re_ask,

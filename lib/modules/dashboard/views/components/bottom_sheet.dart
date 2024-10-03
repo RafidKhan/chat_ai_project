@@ -85,12 +85,14 @@ class CustomBottomSheet{
                     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
                     if(image != null){
                       Navigator.pop(context);
+                      final imageToTextPromptId =  await PrefHelper.getString(AppConstant.IMAGE_TO_TEXT_KEY.key);
                       File file = File(image.path);
+                      print("pid : $imageToTextPromptId");
                       Navigation.push(
                         context,
                         appRoutes: AppRoutes.chatThread,
                         arguments: ChatThreadNavModel(
-                          promptId: null,
+                          promptId: imageToTextPromptId,
                           customPrompt: null,
                           imageFile: file,
                         ),
@@ -99,8 +101,8 @@ class CustomBottomSheet{
                   },
                   child: Row(
                     children: [
-                      Icon(Icons.image),
-                      SizedBox(
+                      const Icon(Icons.image),
+                      const SizedBox(
                         width: 15,
                       ),
                       GlobalText(
@@ -129,5 +131,8 @@ class CustomBottomSheet{
   }
  static Future<void> setSpeechTextPrompt(String id)async {
    await PrefHelper.setString(AppConstant.IMAGE_TO_TEXT_KEY.key,id);
+ }
+ static Future<void> setChatPrompt(String id)async {
+   await PrefHelper.setString(AppConstant.CHAT.key,id);
  }
 }

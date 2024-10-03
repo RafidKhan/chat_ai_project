@@ -38,6 +38,7 @@ enum AppConstant {
   USER_TYPE,
   IMAGE_TO_TEXT_KEY,
   SPEECH_TO_TEXT_KEY,
+  CHAT,
 }
 
 extension AppConstantExtention on AppConstant {
@@ -121,6 +122,8 @@ extension AppConstantExtention on AppConstant {
         return "image_to_text";
       case AppConstant.SPEECH_TO_TEXT_KEY:
         return "speech_to_text";
+      case AppConstant.CHAT:
+        return "CHAT";
 
       default:
         return "";

@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../global/widget/global_image_loader.dart';
 import '../../../../utils/styles/k_assets.dart';
+import '../../../dashboard/views/components/bottom_sheet.dart';
 import '../../controller/chat_thread_controller.dart';
 
 class ChatThreadBottomSection extends ConsumerWidget {
@@ -106,11 +107,16 @@ class ChatThreadBottomSection extends ConsumerWidget {
                           width: 20.w,
                         ),
                         !state.hasText
-                            ? GlobalImageLoader(
-                                imagePath: KAssetName.icScanPng.imagePath,
-                                height: 20.h,
-                                color: KColor.white.color,
-                              )
+                            ? InkWell(
+                          onTap: (){
+                            CustomBottomSheet.showCustomBottomSheet(context);
+                          },
+                              child: GlobalImageLoader(
+                                  imagePath: KAssetName.icScanPng.imagePath,
+                                  height: 20.h,
+                                  color: KColor.white.color,
+                                ),
+                            )
                             : InkWell(
                                 onTap: () {
                                   controller.clearTexts(context);

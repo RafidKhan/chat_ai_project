@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../constant/constant_key.dart';
+import '../../data_provider/pref_helper.dart';
 import '../../modules/chat_thread/model/chat_thread_nav_model.dart';
 import '../../modules/dashboard/views/components/bottom_sheet.dart';
 import '../../utils/app_routes.dart';
@@ -49,12 +51,13 @@ class HomeTypeQuestionComponent extends StatelessWidget {
                       child: Row(
                         children: [
                           InkWell(
-                            onTap: (){
+                            onTap: () async{
+                              final chatPromptId = await PrefHelper.getString(AppConstant.CHAT.key);
                               Navigation.push(
                                 context,
                                 appRoutes: AppRoutes.chatThread,
-                                arguments: const ChatThreadNavModel(
-                                  promptId: null,
+                                arguments: ChatThreadNavModel(
+                                  promptId: chatPromptId,
                                   customPrompt: null,
                                 ),
                               );

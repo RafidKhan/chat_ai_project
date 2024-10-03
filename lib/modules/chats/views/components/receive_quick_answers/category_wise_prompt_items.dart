@@ -53,9 +53,6 @@ class CategoryWisePromptItems extends StatelessWidget {
               if(prompt.aiType == "IMAGETOTEXT"){
                 CustomBottomSheet.setImageToTextPrompt(prompt.id!);
               }
-              if(prompt.aiType == "SPEECHTOTEXT"){
-                CustomBottomSheet.setSpeechTextPrompt(prompt.id!);
-              }
               return GlobalQuestionComponent(
                 model: GlobalQuestionModel(
                   question: prompt.title ?? "",

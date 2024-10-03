@@ -127,7 +127,6 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
     await _chatThreadRepository.uploadImage(
       imageFile: state.imageFile!,
       onSuccess: (response) async{
-        Navigation.pop(context);
         removeImageFile();
         if (response.data?.url != null) {
           await _chatThreadRepository.chatWithAi(
@@ -136,10 +135,16 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
                 customPrompt: "",
                 fileUrl: response.data!.url!,
               ),
-              onSuccess: (response) {
+              onSuccess: (response) async{
                state.messageController.text = response.message!.text!;
+               Navigation.pop(context);
+               final chatPromptId = await PrefHelper.getString(AppConstant.CHAT.key);
+               setPromptId(chatPromptId);
+               reduceFreeToken(context);
               });
           onSuccessFunction(response.data!.url!);
+        }else{
+          Navigation.pop(context);
         }
       },
     );
@@ -171,14 +176,6 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
     await state.speechToText.stop().then((value) {
       Future.delayed(const Duration(milliseconds: 1000), () {
         state.messageController.text = state.speechToTextResult;
-        // Navigation.push(
-        //   context,
-        //   appRoutes: AppRoutes.chatThread,
-        //   arguments: ChatThreadNavModel(
-        //     promptId: null,
-        //     customPrompt: state.speechToTextResult,
-        //   ),
-        // );
       });
     });
   }

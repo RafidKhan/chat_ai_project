@@ -63,13 +63,14 @@ class ChatsController extends StateNotifier<ChatState> {
   }
 
   void stopListening(BuildContext context) async {
-    await state.speechToText.stop().then((value) {
+    await state.speechToText.stop().then((value) async{
+      final chatPromptId = await PrefHelper.getString(AppConstant.CHAT.key);
       Future.delayed(const Duration(milliseconds: 1000), () {
         Navigation.push(
           context,
           appRoutes: AppRoutes.chatThread,
           arguments: ChatThreadNavModel(
-            promptId: null,
+            promptId: chatPromptId,
             customPrompt: state.speechToTextResult,
           ),
         );

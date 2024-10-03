@@ -54,28 +54,28 @@ class _ChatThreadScreenState extends State<ChatThreadScreen> {
       appBar: GlobalAppBar(
         title: context.loc.chat,
         actions: [
-          Padding(
-            padding: EdgeInsets.all(16.r),
-            child: InkWell(
-              onTap: () {},
-              child: GlobalImageLoader(
-                imagePath: KAssetName.filterPng.imagePath,
-                color: KColor.white.color,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.r),
-            child: InkWell(
-              onTap: () {
-                controller.requestFocus();
-              },
-              child: GlobalImageLoader(
-                imagePath: KAssetName.editPng.imagePath,
-                color: KColor.white.color,
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.all(16.r),
+          //   child: InkWell(
+          //     onTap: () {},
+          //     child: GlobalImageLoader(
+          //       imagePath: KAssetName.filterPng.imagePath,
+          //       color: KColor.white.color,
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.all(16.r),
+          //   child: InkWell(
+          //     onTap: () {
+          //       controller.requestFocus();
+          //     },
+          //     child: GlobalImageLoader(
+          //       imagePath: KAssetName.editPng.imagePath,
+          //       color: KColor.white.color,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       body: const Column(

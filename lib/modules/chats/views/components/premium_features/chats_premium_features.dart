@@ -1,3 +1,4 @@
+import 'package:chat_on/constant/constant_key.dart';
 import 'package:chat_on/global/widget/global_circular_loader.dart';
 import 'package:chat_on/global/widget/global_image_loader.dart';
 import 'package:chat_on/global/widget/global_no_data.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../dashboard/views/components/bottom_sheet.dart';
 import '../../../model/premium_feature_model.dart';
 
 class ChatPremiumFeatures extends StatelessWidget {
@@ -64,6 +66,9 @@ class ChatPremiumFeatures extends StatelessWidget {
                       child: Row(
                         children: paidPrompts.map((e) {
                           //'here is:: ${e.aiType}'.log();
+                          if(e.aiType == AppConstant.CHAT.key){
+                            CustomBottomSheet.setChatPrompt(e.id!);
+                          }
                           return PremiumFeatureItem(
                             item: PremiumFeatureModel(
                               title: e.title ?? "",
