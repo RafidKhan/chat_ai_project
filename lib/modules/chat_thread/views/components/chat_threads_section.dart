@@ -85,16 +85,13 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isMe = model.userType == ChatUserType.USER_ME;
     String promptText = "";
-    String? imageUrl;
+    String? imageUrl = model.imageUrl;
 
     if (model.prompt.contains(AppConstant.IMAGE_URL_IS.key)) {
       promptText = model.prompt.split(AppConstant.IMAGE_URL_IS.key).first;
-      imageUrl = model.prompt.split(AppConstant.IMAGE_URL_IS.key).last;
     } else {
       promptText = model.prompt;
     }
-
-    'here is: ${imageUrl}'.log();
 
     return LayoutBuilder(builder: (context, constraints) {
       final maxWidth = constraints.maxWidth * 0.75;
@@ -164,6 +161,7 @@ class ChatBubble extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  if(model.imageUrl == null)
                   ChipWidget(
                     text: context.loc.copy,
                     icon: Icons.copy,

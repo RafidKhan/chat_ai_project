@@ -103,15 +103,30 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
         ),
         onSuccess: (response) {
           state = state.copyWith(isReplyLoading: false);
-          final replyFromBot = response.message?.text;
-          if (replyFromBot != null) {
-            reduceFreeToken(context);
-            final chat = ChatThreadModel(
-              userType: ChatUserType.USER_BOT,
-              promptId: state.promptId,
-              prompt: replyFromBot,
-            );
-            state = state.copyWith(threads: [...state.threads, chat]);
+          if(response.message?.imageUrl != null){
+            final image = response.message?.imageUrl;
+            if(image != null){
+              reduceFreeToken(context);
+              final chat = ChatThreadModel(
+                userType: ChatUserType.USER_BOT,
+                promptId: state.promptId,
+                prompt: "",
+                imageUrl: image
+              );
+              state = state.copyWith(threads: [...state.threads, chat]);
+            }
+          }
+          if(response.message?.text != null){
+            final replyFromBot = response.message?.text;
+            if (replyFromBot != null) {
+              reduceFreeToken(context);
+              final chat = ChatThreadModel(
+                userType: ChatUserType.USER_BOT,
+                promptId: state.promptId,
+                prompt: replyFromBot,
+              );
+              state = state.copyWith(threads: [...state.threads, chat]);
+            }
           }
         },
       );

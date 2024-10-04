@@ -197,16 +197,20 @@ class ChatAiResponse {
 
 class Message {
   String? text;
+  String? imageUrl;
 
   Message({
     this.text,
+    this.imageUrl,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
     text: json["text"],
+    imageUrl: json["imageUrl"]
   );
 
   Map<String, dynamic> toJson() => {
     "text": text,
+    "imageUrl" : imageUrl
   };
 }
