@@ -253,7 +253,7 @@ extension AssetsExtension on KAssetName {
       case KAssetName.icAthletePng:
         return '$_imagesDir/ic_athlete.png';
       case KAssetName.appLogoPng:
-        return '$_imagesDir/app_logo.png';
+        return '$_imagesDir/app_logo_v2.png';
       case KAssetName.youtubeWhitePng:
         return '$_imagesDir/youtube_white.png';
       case KAssetName.editPng:

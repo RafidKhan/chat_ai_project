@@ -15,28 +15,28 @@ class SettingSocialMedia extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<SettingsSocialMediaModel> items = [
       SettingsSocialMediaModel(
+        title: context.loc.facebook,
+        url: "https://www.facebook.com/chatibotai",
+        icon: KAssetName.facebookPng.imagePath,
+      ),
+      SettingsSocialMediaModel(
         title: context.loc.instagram,
-        url: "https://www.instagram.com/",
+        url: "https://www.instagram.com/chat_ibot_ai",
         icon: KAssetName.instagramWhitePng.imagePath,
       ),
-      SettingsSocialMediaModel(
-        title: context.loc.x,
-        url: "https://x.com/",
-        icon: KAssetName.twitterWhitePng.imagePath,
-      ),
-      SettingsSocialMediaModel(
-        title: context.loc.tiktok,
-        url: "https://www.tiktok.com/explore",
-        icon: KAssetName.tiktokWhitePng.imagePath,
-      ),
+      // SettingsSocialMediaModel(
+      //   title: context.loc.tiktok,
+      //   url: "https://www.tiktok.com/explore",
+      //   icon: KAssetName.tiktokWhitePng.imagePath,
+      // ),
       SettingsSocialMediaModel(
         title: context.loc.linkedin,
-        url: "https://www.linkedin.com/",
+        url: "https://www.linkedin.com/company/chat-ibot-ai",
         icon: KAssetName.linkedinWhitePng.imagePath,
       ),
       SettingsSocialMediaModel(
         title: context.loc.youtube,
-        url: "https://www.youtube.com/",
+        url: "https://www.youtube.com/@ResortsOm",
         icon: KAssetName.youtubeWhitePng.imagePath,
       ),
     ];
