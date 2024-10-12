@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chat_on/global/widget/global_circular_loader.dart';
 import 'package:chat_on/utils/enum.dart';
 import 'package:chat_on/utils/extension.dart';
@@ -6,10 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../constant/constant_key.dart';
+import '../../../../data_provider/pref_helper.dart';
 import '../../../../global/widget/global_image_loader.dart';
+import '../../../../utils/app_routes.dart';
+import '../../../../utils/navigation.dart';
 import '../../../../utils/styles/k_assets.dart';
+import '../../../../utils/view_util.dart';
+import '../../../chats/views/components/premium_custom_screens/premium_image_uploader.dart';
 import '../../../dashboard/views/components/bottom_sheet.dart';
 import '../../controller/chat_thread_controller.dart';
+import '../../model/chat_thread_nav_model.dart';
 
 class ChatThreadBottomSection extends ConsumerWidget {
   const ChatThreadBottomSection({super.key});
@@ -108,10 +117,31 @@ class ChatThreadBottomSection extends ConsumerWidget {
                         ),
                         !state.hasText
                             ? InkWell(
-                          onTap: (){
-                            CustomBottomSheet.showCustomBottomSheet(context);
-                          },
-                              child: GlobalImageLoader(
+                          onTap: () async{
+                            File? imageFile;
+                            await ViewUtil.bottomSheet(
+                              context: context,
+                              content: PremiumImageUploader(
+                                onImageSelect: (file) {
+                                  imageFile = file;
+                                },
+                              ),
+                            ).then((value) async{
+                              if (imageFile != null) {
+                                final imageToTextPromptId =  await PrefHelper.getString(AppConstant.IMAGE_TO_TEXT_KEY.key);
+                                Navigation.push(
+                                  context,
+                                  appRoutes: AppRoutes.chatThread,
+                                  arguments: ChatThreadNavModel(
+                                      promptId: imageToTextPromptId,
+                                      customPrompt: "",
+                                      imageFile: imageFile,
+                                      aiType: ""
+                                  ),
+                                );
+                              }
+                            });
+                          }, child: GlobalImageLoader(
                                   imagePath: KAssetName.icScanPng.imagePath,
                                   height: 20.h,
                                   color: KColor.white.color,

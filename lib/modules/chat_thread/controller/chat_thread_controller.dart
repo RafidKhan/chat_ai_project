@@ -136,6 +136,7 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
 
   Future<void> uploadImage(
     BuildContext context, {
+      required String aiType,
     required Function(String imageUrl) onSuccessFunction,
   }) async {
     ViewUtil.showLoader();
@@ -143,7 +144,30 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
       imageFile: state.imageFile!,
       onSuccess: (response) async{
         removeImageFile();
-        if (response.data?.url != null) {
+        if(response.data!.url != null && aiType == "FILES"){
+          await _chatThreadRepository.chatWithAi(
+              params: PromptRequest(
+              promptId: state.promptId,
+              customPrompt: "Give me summarization of this file",
+              fileUrl: response.data!.filename,
+          ), onSuccess: (response){
+            final replyFromBot = response.message?.translate;
+            reduceFreeToken(context);
+            final prompt = ChatThreadModel(
+              userType: ChatUserType.USER_ME,
+              promptId: state.promptId,
+              prompt: "Give me summarization of this file",
+            );
+            state = state.copyWith(threads: [...state.threads, prompt]);
+            final chat = ChatThreadModel(
+              userType: ChatUserType.USER_BOT,
+              promptId: state.promptId,
+              prompt: replyFromBot!,
+            );
+            Navigation.pop(context);
+            state = state.copyWith(threads: [...state.threads, chat]);
+          });
+        } else if(response.data?.url != null) {
           await _chatThreadRepository.chatWithAi(
               params: PromptRequest(
                 promptId: state.promptId,
@@ -163,6 +187,35 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
         }
       },
     );
+  }
+
+  Future<void> sendYoutubeUrl(BuildContext context, {
+    String? url}) async{
+    ViewUtil.showLoader();
+    await _chatThreadRepository.chatWithAi(
+        params: PromptRequest(
+          promptId: state.promptId,
+          stream: true,
+          customPrompt: "What is the video give me the summarization",
+          fileUrl: url,
+        ), onSuccess: (response) {
+      reduceFreeToken(context);
+      Navigator.pop(context);
+      final replyFromBot = response.message!.translate;
+      final prompt = ChatThreadModel(
+        userType: ChatUserType.USER_ME,
+        promptId: state.promptId,
+        prompt: "What is the video give me the summarization",
+      );
+      state = state.copyWith(threads: [...state.threads, prompt]);
+      final chat = ChatThreadModel(
+        userType: ChatUserType.USER_BOT,
+        promptId: state.promptId,
+        prompt: replyFromBot!,
+      );
+      Navigation.pop(context);
+      state = state.copyWith(threads: [...state.threads, chat]);
+        });
   }
 
   void setIsListeningStatus(
@@ -217,7 +270,7 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
     if (state.imageFile == null) {
       sendMyChat(context);
     } else {
-      uploadImage(context, onSuccessFunction: (imageUrl) {
+      uploadImage(context,aiType: "", onSuccessFunction: (imageUrl) {
         'here is:: ${imageUrl}'.log();
         sendMyChat(context, imageUrl: imageUrl);
       });

@@ -47,10 +47,8 @@ class GetHelpWithTask extends StatelessWidget {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children:
-                            List.generate(state.freePrompts.length, (index) {
+                        children: List.generate(state.freePrompts.length, (index) {
                           final element = state.freePrompts[index];
-
                           final int position = customCounter(index);
                           final title = element.title ?? "";
                           final subTitle = element.subTitle ?? "";
@@ -59,7 +57,6 @@ class GetHelpWithTask extends StatelessWidget {
                           String nextTitle = '';
                           String nextSubTitle = '';
                           String nextIcon = '';
-
                           if (index < (state.freePrompts.length - 1)) {
                             nextElement = state.freePrompts[index + 1];
                             nextTitle = nextElement.title ?? "";
@@ -75,6 +72,7 @@ class GetHelpWithTask extends StatelessWidget {
                                 icon: icon,
                                 promptId: element.id,
                                 customPrompt: element.prompt,
+                                aiType: element.aiType
                               ),
                             );
                           }
@@ -90,6 +88,7 @@ class GetHelpWithTask extends StatelessWidget {
                                     icon: icon,
                                     promptId: element.id,
                                     customPrompt: element.prompt,
+                                    aiType: element.aiType
                                   ),
                                 ),
                                 if (nextElement != null)
@@ -100,6 +99,7 @@ class GetHelpWithTask extends StatelessWidget {
                                       icon: nextIcon,
                                       promptId: nextElement.id,
                                       customPrompt: nextElement.prompt,
+                                      aiType: element.aiType,
                                     ),
                                   ),
                               ],

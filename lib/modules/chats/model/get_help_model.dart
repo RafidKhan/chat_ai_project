@@ -7,6 +7,7 @@ class GetHelpModel {
   final String subTitle;
   final String icon;
   final Color? iconColor;
+  final String? aiType;
 
   const GetHelpModel({
     required this.promptId,
@@ -15,5 +16,6 @@ class GetHelpModel {
     required this.subTitle,
     required this.icon,
     this.iconColor,
+    this.aiType
   });
 }

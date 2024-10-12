@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:chat_on/global/widget/global_image_loader.dart';
 import 'package:chat_on/global/widget/global_text.dart';
 import 'package:chat_on/modules/chat_thread/model/chat_thread_nav_model.dart';
@@ -5,6 +6,7 @@ import 'package:chat_on/modules/chats/model/get_help_model.dart';
 import 'package:chat_on/utils/enum.dart';
 import 'package:chat_on/utils/styles/k_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_document_picker/flutter_document_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../utils/app_routes.dart';
@@ -21,15 +23,23 @@ class GetHelpItemFull extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigation.push(
-          context,
-          appRoutes: AppRoutes.chatThread,
-          arguments: ChatThreadNavModel(
-            promptId: model.promptId,
-            customPrompt: model.customPrompt,
-          ),
-        );
+      onTap: ()  async{
+        if(model.aiType == "FILES"){
+          final path = await FlutterDocumentPicker.openDocument();
+          if(path != null){
+
+          }
+        }else{
+          Navigation.push(
+            context,
+            appRoutes: AppRoutes.chatThread,
+            arguments: ChatThreadNavModel(
+              promptId: model.promptId,
+              customPrompt: model.customPrompt,
+              aiType: model.aiType
+            ),
+          );
+        }
       },
       child: Container(
         height: 300.h,

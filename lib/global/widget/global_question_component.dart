@@ -12,7 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../modules/chat_thread/model/chat_thread_nav_model.dart';
+import '../../modules/chats/model/premium_feature_model.dart';
+import '../../modules/chats/views/components/premium_custom_screens/premium_file_uploader.dart';
 import '../../modules/chats/views/components/premium_custom_screens/premium_image_uploader.dart';
+import '../../modules/chats/views/components/premium_custom_screens/premium_youtube_link_input.dart';
 import '../model/global_question_model.dart';
 
 class GlobalQuestionComponent extends StatelessWidget {
@@ -30,14 +33,41 @@ class GlobalQuestionComponent extends StatelessWidget {
       focusColor: KColor.transparent.color,
       highlightColor: KColor.transparent.color,
       onTap: () async{
-        Navigation.push(
-          context,
-          appRoutes: AppRoutes.chatThread,
-          arguments: ChatThreadNavModel(
-            promptId: model.promptId,
-            customPrompt: model.customPrompt,
-          ),
-        );
+       if(model.aiType == "FILES" || model.aiType == "SUMMARIZATION"){
+         final item =  PremiumFeatureModel(
+           title: '', subTitle: '',
+           icon: '',
+           promptId: model.promptId,
+           customPrompt: '',
+           aiType: "FILES",
+         );
+         await ViewUtil.bottomSheet(
+           context: context,
+           content: FileUploaderUi(item: item),
+         );
+       }else if(model.aiType == "YOUTUBE_LINK"){
+         final item =  PremiumFeatureModel(
+           title: '', subTitle: '',
+           icon: '',
+           promptId: model.promptId,
+           customPrompt: '',
+           aiType: "FILES",
+         );
+         await ViewUtil.bottomSheet(
+           context: context,
+           content: YoutubeLinkInput(item: item),
+         );
+       } else{
+           Navigation.push(
+             context,
+             appRoutes: AppRoutes.chatThread,
+             arguments: ChatThreadNavModel(
+               promptId: model.promptId,
+               customPrompt: model.customPrompt,
+               aiType: "",
+             ),
+           );
+         }
       },
       child: Container(
         width: context.width,

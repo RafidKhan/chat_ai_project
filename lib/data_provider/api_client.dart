@@ -209,9 +209,9 @@ class ApiClient {
       } catch (e) {
         error = "Server Error";
       }
-      return showSnackBarAndPopLoader(
-        error,
-      );
+      ///need to figure out solution for stop loading
+      Navigator.pop(Navigation.key.currentContext!);
+      return showSnackBarAndPopLoader(error);
     } catch (e) {
       return showSnackBarAndPopLoader("Something Went Wrong");
     }

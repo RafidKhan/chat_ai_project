@@ -59,6 +59,7 @@ class CategoryWisePromptItems extends StatelessWidget {
                   icon: prompt.backgroundImage ?? "",
                   promptId: prompt.id,
                   customPrompt: prompt.prompt,
+                  aiType: prompt.aiType,
                 ),
               );
             },

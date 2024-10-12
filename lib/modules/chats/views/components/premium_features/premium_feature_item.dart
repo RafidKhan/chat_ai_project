@@ -1,19 +1,19 @@
 import 'dart:io';
-
 import 'package:chat_on/global/widget/global_image_loader.dart';
 import 'package:chat_on/global/widget/global_text.dart';
 import 'package:chat_on/modules/chats/model/premium_feature_model.dart';
 import 'package:chat_on/utils/enum.dart';
-import 'package:chat_on/utils/extension.dart';
 import 'package:chat_on/utils/styles/k_colors.dart';
 import 'package:chat_on/utils/view_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_document_picker/flutter_document_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../../utils/app_routes.dart';
 import '../../../../../utils/navigation.dart';
 import '../../../../chat_thread/model/chat_thread_nav_model.dart';
+import '../premium_custom_screens/premium_file_uploader.dart';
 import '../premium_custom_screens/premium_image_uploader.dart';
+import '../premium_custom_screens/premium_youtube_link_input.dart';
 
 class PremiumFeatureItem extends StatelessWidget {
   final PremiumFeatureModel item;
@@ -45,10 +45,21 @@ class PremiumFeatureItem extends StatelessWidget {
                   promptId: item.promptId,
                   customPrompt: item.customPrompt,
                   imageFile: imageFile,
+                  aiType: item.aiType
                 ),
               );
             }
           });
+        } else if(item.aiType == "FILES"){
+          await ViewUtil.bottomSheet(
+            context: context,
+            content: FileUploaderUi(item: item),
+          );
+        } else if(item.aiType == "YOUTUBE_LINK"){
+          await ViewUtil.bottomSheet(
+            context: context,
+            content: YoutubeLinkInput(item: item),
+          );
         } else {
           Navigation.push(
             context,
@@ -56,6 +67,7 @@ class PremiumFeatureItem extends StatelessWidget {
             arguments: ChatThreadNavModel(
               promptId: item.promptId,
               customPrompt: item.customPrompt,
+              aiType: item.aiType,
             ),
           );
         }

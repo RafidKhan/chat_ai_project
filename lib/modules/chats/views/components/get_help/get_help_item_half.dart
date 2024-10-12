@@ -1,14 +1,21 @@
+import 'dart:io';
+
 import 'package:chat_on/global/widget/global_text.dart';
 import 'package:chat_on/modules/chats/model/get_help_model.dart';
 import 'package:chat_on/utils/enum.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_document_picker/flutter_document_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../global/widget/global_image_loader.dart';
 import '../../../../../utils/app_routes.dart';
 import '../../../../../utils/navigation.dart';
 import '../../../../../utils/styles/k_colors.dart';
+import '../../../../../utils/view_util.dart';
 import '../../../../chat_thread/model/chat_thread_nav_model.dart';
+import '../../../model/premium_feature_model.dart';
+import '../premium_custom_screens/premium_file_uploader.dart';
+import '../premium_custom_screens/premium_image_uploader.dart';
 
 class GetHelpItemHalf extends StatelessWidget {
   final GetHelpModel model;
@@ -21,15 +28,30 @@ class GetHelpItemHalf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigation.push(
-          context,
-          appRoutes: AppRoutes.chatThread,
-          arguments: ChatThreadNavModel(
-            promptId: model.promptId,
-            customPrompt: model.customPrompt,
-          ),
-        );
+      onTap: () async{
+        if(model.aiType == "SUMMARIZATION"){
+         final item =  PremiumFeatureModel(
+           title: '', subTitle: '',
+           icon: '',
+           promptId: model.promptId,
+           customPrompt: '',
+           aiType: "FILES",
+         );
+          await ViewUtil.bottomSheet(
+            context: context,
+            content: FileUploaderUi(item: item),
+          );
+        }else{
+          Navigation.push(
+            context,
+            appRoutes: AppRoutes.chatThread,
+            arguments: ChatThreadNavModel(
+              promptId: model.promptId,
+              customPrompt: model.customPrompt,
+              aiType: model.aiType
+            ),
+          );
+        }
       },
       child: Container(
         height: 120.h,

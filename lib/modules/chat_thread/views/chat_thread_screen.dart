@@ -34,13 +34,16 @@ class _ChatThreadScreenState extends State<ChatThreadScreen> {
       controller.setPromptId(widget.model.promptId);
       if(widget.model.promptResponse != null){
         controller.loadHistory(promptId: widget.model.promptId,response: widget.model.promptResponse,message: widget.model.customPrompt);
+      }else if(widget.model.imageFile != null && widget.model.aiType == "FILES"){
+        controller.setImageFile(widget.model.imageFile!);
+        controller.uploadImage(context,aiType: "FILES", onSuccessFunction: (response){});
+      }else if(widget.model.url != null && widget.model.aiType == "YOUTUBE_LINK"){
+        controller.sendYoutubeUrl(context,url: widget.model.url);
       }else{
         controller.setDefaultPrompt(widget.model.customPrompt);
         if (widget.model.imageFile != null) {
           controller.setImageFile(widget.model.imageFile!);
-          controller.uploadImage(context, onSuccessFunction: (response){
-
-          });
+          controller.uploadImage(context,aiType: "", onSuccessFunction: (response){});
         }
       }
     });

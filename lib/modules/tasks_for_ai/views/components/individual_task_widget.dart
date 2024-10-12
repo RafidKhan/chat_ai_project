@@ -30,6 +30,7 @@ class IndividualTaskWidget extends StatelessWidget {
           arguments: ChatThreadNavModel(
             promptId: taskModel.promptId,
             customPrompt: taskModel.prompt,
+            aiType: "",
           ),
         );
       },

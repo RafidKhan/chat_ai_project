@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chat_on/global/widget/global_image_loader.dart';
 import 'package:chat_on/global/widget/global_text.dart';
 import 'package:chat_on/modules/chats/controller/chats_controller.dart';
@@ -11,9 +13,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constant/constant_key.dart';
 import '../../data_provider/pref_helper.dart';
 import '../../modules/chat_thread/model/chat_thread_nav_model.dart';
+import '../../modules/chats/views/components/premium_custom_screens/premium_image_uploader.dart';
 import '../../modules/dashboard/views/components/bottom_sheet.dart';
 import '../../utils/app_routes.dart';
 import '../../utils/navigation.dart';
+import '../../utils/view_util.dart';
 
 class HomeTypeQuestionComponent extends StatelessWidget {
   const HomeTypeQuestionComponent({super.key});
@@ -59,6 +63,7 @@ class HomeTypeQuestionComponent extends StatelessWidget {
                                 arguments: ChatThreadNavModel(
                                   promptId: chatPromptId,
                                   customPrompt: null,
+                                  aiType: "",
                                 ),
                               );
                             },
@@ -78,8 +83,31 @@ class HomeTypeQuestionComponent extends StatelessWidget {
                               width: 20.w,
                             ),
                             InkWell(
-                              onTap: (){
-                                CustomBottomSheet.showCustomBottomSheet(context);
+                              onTap: () async{
+                                File? imageFile;
+                                await ViewUtil.bottomSheet(
+                                  context: context,
+                                  content: PremiumImageUploader(
+                                    onImageSelect: (file) {
+                                      imageFile = file;
+                                    },
+                                  ),
+                                ).then((value) async{
+                                  if (imageFile != null) {
+                                    final imageToTextPromptId =  await PrefHelper.getString(AppConstant.IMAGE_TO_TEXT_KEY.key);
+                                    Navigation.push(
+                                      context,
+                                      appRoutes: AppRoutes.chatThread,
+                                      arguments: ChatThreadNavModel(
+                                          promptId: imageToTextPromptId,
+                                          customPrompt: "",
+                                          imageFile: imageFile,
+                                          aiType: ""
+                                      ),
+                                    );
+                                  }
+                                });
+                                //CustomBottomSheet.showCustomBottomSheet(context);
                               },
                               child: GlobalImageLoader(
                                 imagePath: KAssetName.icScanPng.imagePath,

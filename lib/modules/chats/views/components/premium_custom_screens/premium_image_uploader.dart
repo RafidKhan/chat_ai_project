@@ -125,31 +125,44 @@ class ImagePickerType extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          InkWell(
-            onTap: () {
-              onSourceSelected(ImageSource.camera);
-              Navigation.pop(context);
-            },
-            child: GlobalText(
-              str: "Camera",
-              color: KColor.black.color,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
+          Row(
+            children: [
+              const Icon(Icons.camera,color: Colors.black),
+              const SizedBox(width: 20),
+              InkWell(
+                onTap: () {
+                  onSourceSelected(ImageSource.camera);
+                  Navigation.pop(context);
+                },
+                child: GlobalText(
+                  str: "Camera",
+                  color: KColor.black.color,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
           const Divider(),
-          InkWell(
-            onTap: () {
-              onSourceSelected(ImageSource.gallery);
-              Navigation.pop(context);
-            },
-            child: GlobalText(
-              str: "Gallery",
-              color: KColor.black.color,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
+          Row(
+            children: [
+              Icon(Icons.photo,color: Colors.black),
+              SizedBox(width: 20),
+              InkWell(
+                onTap: () {
+                  onSourceSelected(ImageSource.gallery);
+                  Navigation.pop(context);
+                },
+                child: GlobalText(
+                  str: "Gallery",
+                  color: KColor.black.color,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
+          const Divider(),
           SizedBox(
             height: 20.h,
           ),

@@ -72,6 +72,7 @@ class ChatsController extends StateNotifier<ChatState> {
           arguments: ChatThreadNavModel(
             promptId: chatPromptId,
             customPrompt: state.speechToTextResult,
+            aiType: "",
           ),
         );
       });
