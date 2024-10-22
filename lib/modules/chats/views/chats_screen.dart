@@ -31,7 +31,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+      //extendBody: true,
       backgroundColor: KColor.gradient2.color,
       body: Container(
         height: context.height,
@@ -47,14 +47,12 @@ class _ChatsScreenState extends State<ChatsScreen> {
               const ChatPremiumFeatures(),
               const GetHelpWithTask(),
               const ReceiveQuickAnswers(),
-              SizedBox(
-                height: 60.h,
-              ),
+              SizedBox(height: 60.h),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const HomeTypeQuestionComponent(),
+     bottomNavigationBar: const HomeTypeQuestionComponent(),
     );
   }
 }

@@ -7,9 +7,9 @@ import 'package:chat_on/utils/network_connection.dart';
 import 'package:chat_on/utils/styles/k_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 //localization
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +19,10 @@ import 'modules/splash/views/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initServices();
+  await FlutterDownloader.initialize(
+      debug: true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl: true // option: set to false to disable working with http links (default: false)
+  );
   //Set Potraite Mode only
   await SystemChrome.setPreferredOrientations(
     [

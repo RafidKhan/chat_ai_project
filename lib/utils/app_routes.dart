@@ -3,6 +3,7 @@ import 'package:chat_on/modules/chat_thread/model/chat_thread_nav_model.dart';
 import '../modules/auth/sign_in/views/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import '../modules/chat_thread/views/chat_thread_screen.dart';
+import '../modules/chat_thread/views/components/image_full_screen_view.dart';
 import '../modules/chats/views/chats_screen.dart';
 import '../modules/dashboard/views/dashboard_screen.dart';
 import '../modules/get_pro_access/views/get_pro_access_screen.dart';
@@ -21,7 +22,7 @@ enum AppRoutes {
   history,
   tasksForAi,
   chats,
-  dashboard,
+  dashboard
 }
 
 extension AppRoutesExtention on AppRoutes {

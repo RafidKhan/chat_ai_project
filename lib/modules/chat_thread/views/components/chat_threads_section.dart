@@ -10,10 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../../../global/widget/global_text.dart';
+import '../../../../utils/app_routes.dart';
+import '../../../../utils/navigation.dart';
 import '../../controller/chat_thread_controller.dart';
+import 'image_full_screen_view.dart';
 
 class ChatThreadsSection extends StatelessWidget with GlobalMixin {
   const ChatThreadsSection({super.key});
@@ -42,10 +46,11 @@ class ChatThreadsSection extends StatelessWidget with GlobalMixin {
                       ),
                     );
                   },
-                  onTapShare: () {
-                    // socialShare(
-                    //   chat.prompt,
-                    // );
+                  onTapShare: () async{
+                    await FlutterShare.share(
+                        title: 'Share',
+                        text: chat.prompt,
+                    );
                   },
                   onTapReask: () {
                     controller.reAsk(
@@ -94,9 +99,10 @@ class ChatBubble extends StatelessWidget {
     }
 
     return LayoutBuilder(builder: (context, constraints) {
-      final maxWidth = constraints.maxWidth * 0.75;
+      final maxWidth = constraints.maxWidth;
       return Container(
-        alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+        //alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+        alignment: Alignment.centerLeft,
         margin: EdgeInsets.symmetric(
           vertical: 5.h,
           horizontal: 10.w,
@@ -144,14 +150,22 @@ class ChatBubble extends StatelessWidget {
                 SizedBox(
                   height: 5.h,
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(4.r),
-                  child: GlobalImageLoader(
-                    imagePath: imageUrl,
-                    imageFor: ImageFor.network,
-                    height: 120.h,
-                    width: context.width,
-                    fit: BoxFit.fill,
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ImageFullScreenView(imageUrl: imageUrl)),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(4.r),
+                    child: GlobalImageLoader(
+                      imagePath: imageUrl,
+                      imageFor: ImageFor.network,
+                      height: 120.h,
+                      width: context.width,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 )
               ],
@@ -172,11 +186,11 @@ class ChatBubble extends StatelessWidget {
                   //   icon: Icons.share,
                   //   onTap: onTapShare,
                   // ),
-                  // ChipWidget(
-                  //   text: context.loc.share,
-                  //   icon: Icons.share,
-                  //   onTap: onTapShare,
-                  // ),
+                  ChipWidget(
+                    text: context.loc.share,
+                    icon: Icons.share,
+                    onTap: onTapShare,
+                  ),
                   if (isMe)
                     ChipWidget(
                       text: context.loc.re_ask,

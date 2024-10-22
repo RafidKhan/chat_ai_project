@@ -6,15 +6,14 @@ import 'package:chat_on/modules/chats/controller/chats_controller.dart';
 import 'package:chat_on/utils/extension.dart';
 import 'package:chat_on/utils/styles/k_assets.dart';
 import 'package:chat_on/utils/styles/k_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../constant/constant_key.dart';
 import '../../data_provider/pref_helper.dart';
 import '../../modules/chat_thread/model/chat_thread_nav_model.dart';
 import '../../modules/chats/views/components/premium_custom_screens/premium_image_uploader.dart';
-import '../../modules/dashboard/views/components/bottom_sheet.dart';
 import '../../utils/app_routes.dart';
 import '../../utils/navigation.dart';
 import '../../utils/view_util.dart';
@@ -42,6 +41,8 @@ class HomeTypeQuestionComponent extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
+                      // height: 50,
+                      // width: context.width * 0.74,
                       padding: EdgeInsets.symmetric(
                         horizontal: 10.w,
                         vertical: 12.h,
@@ -67,15 +68,13 @@ class HomeTypeQuestionComponent extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: Expanded(
-                              child: GlobalText(
-                                str: state.isListeningSpeech
-                                    ? context.loc.listening
-                                    : context.loc.type_message_here,
-                                color: KColor.white.color,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
+                            child: GlobalText(
+                              str: state.isListeningSpeech
+                                  ? context.loc.listening
+                                  : context.loc.type_message_here,
+                              color: KColor.white.color,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           if (!state.isListeningSpeech) ...[
