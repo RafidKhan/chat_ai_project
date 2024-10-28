@@ -63,7 +63,7 @@ class _FileUploaderUiState extends State<FileUploaderUi> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: GlobalText(
-              str: "It must be 30 MB max (docx,doc,xlsx & xls)",
+              str: "It must be 30 MB max",
               color: KColor.white.color,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -75,7 +75,7 @@ class _FileUploaderUiState extends State<FileUploaderUi> {
             onTap: () async{
               try{
                 FlutterDocumentPickerParams params = FlutterDocumentPickerParams(
-                  allowedFileExtensions: ['docx','doc','xlsx','xls'],
+                  allowedFileExtensions: ['docx','doc','xlsx','xls','pdf'],
                 );
                 final doc = await FlutterDocumentPicker.openDocument(params: params);
                 if(doc != null){

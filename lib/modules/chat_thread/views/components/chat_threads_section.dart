@@ -137,6 +137,7 @@ class ChatBubble extends StatelessWidget {
                               fontSize: 16.0,
                               fontFamily: AppConstant.FONTFAMILY.key,
                               fontWeight: FontWeight.w400),
+                          speed: const Duration(milliseconds: 10)
                         )
                       ],
                     )
