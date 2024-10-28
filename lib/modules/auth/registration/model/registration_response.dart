@@ -1,6 +1,4 @@
 
-
-
 class SignUpResponse {
   String? message;
   int? nonce;
