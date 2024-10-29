@@ -5,8 +5,7 @@ import '../repository/history_interface.dart';
 import '../repository/history_repository.dart';
 
 final historyController =
-StateNotifierProvider<HistoryController, HistoryState>(
-        (ref) => HistoryController());
+StateNotifierProvider<HistoryController, HistoryState>((ref) => HistoryController());
 
 class HistoryController  extends StateNotifier<HistoryState>{
   final IHistoryRepository _historyRepository = HistoryRepository();

@@ -209,8 +209,6 @@ class ApiClient {
       } catch (e) {
         error = "Server Error";
       }
-      ///need to figure out solution for stop loading
-      Navigator.pop(Navigation.key.currentContext!);
       return showSnackBarAndPopLoader(error);
     } catch (e) {
       return showSnackBarAndPopLoader("Something Went Wrong");
@@ -311,7 +309,6 @@ class ApiClient {
       } else {
         final String message = data['message'];
         //Where error occured then pop the global dialog
-
         ViewUtil.showAlertDialog(
           barrierDismissible: false,
           contentPadding: EdgeInsets.zero,

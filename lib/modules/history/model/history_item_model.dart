@@ -5,6 +5,7 @@ class HistoryItemModel {
   final String dateTime;
   final String? promptId;
   final String? promptResponse;
+  final String? aiType;
 
 
   const HistoryItemModel({
@@ -12,5 +13,6 @@ class HistoryItemModel {
     required this.dateTime,
     this.promptId,
     this.promptResponse,
+    this.aiType
   });
 }

@@ -14,8 +14,6 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../../../global/widget/global_text.dart';
-import '../../../../utils/app_routes.dart';
-import '../../../../utils/navigation.dart';
 import '../../controller/chat_thread_controller.dart';
 import 'image_full_screen_view.dart';
 
@@ -90,8 +88,6 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isMe = model.userType == ChatUserType.USER_ME;
     String promptText = "";
-    String? imageUrl = model.imageUrl;
-
     if (model.prompt.contains(AppConstant.IMAGE_URL_IS.key)) {
       promptText = model.prompt.split(AppConstant.IMAGE_URL_IS.key).first;
     } else {
@@ -125,7 +121,7 @@ class ChatBubble extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-             !isMe && isAnimate
+              model.imageUrl == null &&  !isMe && isAnimate
                   ? AnimatedTextKit(
                      isRepeatingAnimation: false,
                       repeatForever: false,
@@ -147,7 +143,7 @@ class ChatBubble extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-              if (imageUrl != null) ...[
+              if (model.imageUrl != null) ...[
                 SizedBox(
                   height: 5.h,
                 ),
@@ -155,13 +151,13 @@ class ChatBubble extends StatelessWidget {
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ImageFullScreenView(imageUrl: imageUrl)),
+                      MaterialPageRoute(builder: (context) => ImageFullScreenView(imageUrl: model.imageUrl!)),
                     );
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4.r),
                     child: GlobalImageLoader(
-                      imagePath: imageUrl,
+                      imagePath: model.imageUrl!,
                       imageFor: ImageFor.network,
                       height: 120.h,
                       width: context.width,

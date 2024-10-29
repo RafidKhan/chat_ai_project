@@ -271,22 +271,23 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
       sendMyChat(context);
     } else {
       uploadImage(context,aiType: "", onSuccessFunction: (imageUrl) {
-        'here is:: ${imageUrl}'.log();
+        'here is:: $imageUrl'.log();
         sendMyChat(context, imageUrl: imageUrl);
       });
     }
   }
 
-  loadHistory({String? message,String? promptId, String? response}) {
+  loadHistory({String? message,String? promptId, String? response,String? imageUrl}) {
     final userChat = ChatThreadModel(
       userType: ChatUserType.USER_ME,
       promptId: state.promptId,
       prompt: message!,
     );
-    final responseChat = ChatThreadModel(
+    ChatThreadModel responseChat = ChatThreadModel(
       userType: ChatUserType.USER_BOT,
       promptId: state.promptId,
       prompt: response!,
+      imageUrl: imageUrl,
     );
     state = state.copyWith(threads: [userChat,responseChat]);
   }

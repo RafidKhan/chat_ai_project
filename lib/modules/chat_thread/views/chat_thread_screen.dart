@@ -33,7 +33,7 @@ class _ChatThreadScreenState extends State<ChatThreadScreen> {
     Future(() {
       controller.setPromptId(widget.model.promptId);
       if(widget.model.promptResponse != null){
-        controller.loadHistory(promptId: widget.model.promptId,response: widget.model.promptResponse,message: widget.model.customPrompt);
+        controller.loadHistory(promptId: widget.model.promptId,response: widget.model.promptResponse,message: widget.model.customPrompt,imageUrl: widget.model.promptResponse!.startsWith("https://oaidalleapiprodscus.blob.core.windows.net/") ? widget.model.promptResponse! : null);
       }else if(widget.model.imageFile != null && widget.model.aiType == "FILES"){
         controller.setImageFile(widget.model.imageFile!);
         controller.uploadImage(context,aiType: "FILES", onSuccessFunction: (response){});

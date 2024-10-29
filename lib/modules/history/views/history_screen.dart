@@ -70,6 +70,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                      dateTime: DateFormat("dd-MMM-yyyy").format(item.createdAt!),
                      promptId: item.promptId?.id!,
                      promptResponse: item.response,
+                     aiType: item.promptId?.aiType ?? "",
                   );
                   return item.promptId != null ? HistoryItem(
                     itemModel: model,
