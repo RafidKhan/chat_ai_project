@@ -68,7 +68,7 @@ class ChatThreadsSection extends StatelessWidget with GlobalMixin {
   }
 }
 
-class ChatBubble extends StatelessWidget {
+class ChatBubble extends StatefulWidget {
   final ChatThreadModel model;
   final VoidCallback? onTapCopy;
   final VoidCallback? onTapShare;
@@ -85,13 +85,21 @@ class ChatBubble extends StatelessWidget {
   });
 
   @override
+  State<ChatBubble> createState() => _ChatBubbleState();
+}
+
+class _ChatBubbleState extends State<ChatBubble> {
+
+  bool stopAnimate = false;
+
+  @override
   Widget build(BuildContext context) {
-    final bool isMe = model.userType == ChatUserType.USER_ME;
+    final bool isMe = widget.model.userType == ChatUserType.USER_ME;
     String promptText = "";
-    if (model.prompt.contains(AppConstant.IMAGE_URL_IS.key)) {
-      promptText = model.prompt.split(AppConstant.IMAGE_URL_IS.key).first;
+    if (widget.model.prompt.contains(AppConstant.IMAGE_URL_IS.key)) {
+      promptText = widget.model.prompt.split(AppConstant.IMAGE_URL_IS.key).first;
     } else {
-      promptText = model.prompt;
+      promptText = widget.model.prompt;
     }
 
     return LayoutBuilder(builder: (context, constraints) {
@@ -121,7 +129,7 @@ class ChatBubble extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              model.imageUrl == null &&  !isMe && isAnimate
+              !stopAnimate && widget.model.imageUrl == null &&  !isMe && widget.isAnimate
                   ? AnimatedTextKit(
                      isRepeatingAnimation: false,
                       repeatForever: false,
@@ -143,7 +151,7 @@ class ChatBubble extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-              if (model.imageUrl != null) ...[
+              if (widget.model.imageUrl != null) ...[
                 SizedBox(
                   height: 5.h,
                 ),
@@ -151,13 +159,13 @@ class ChatBubble extends StatelessWidget {
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ImageFullScreenView(imageUrl: model.imageUrl!)),
+                      MaterialPageRoute(builder: (context) => ImageFullScreenView(imageUrl: widget.model.imageUrl!)),
                     );
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4.r),
                     child: GlobalImageLoader(
-                      imagePath: model.imageUrl!,
+                      imagePath: widget.model.imageUrl!,
                       imageFor: ImageFor.network,
                       height: 120.h,
                       width: context.width,
@@ -172,11 +180,11 @@ class ChatBubble extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if(model.imageUrl == null)
+                  if(widget.model.imageUrl == null)
                   ChipWidget(
                     text: context.loc.copy,
                     icon: Icons.copy,
-                    onTap: onTapCopy,
+                    onTap: widget.onTapCopy,
                   ),
                   // ChipWidget(
                   //   text: context.loc.share,
@@ -186,13 +194,22 @@ class ChatBubble extends StatelessWidget {
                   ChipWidget(
                     text: context.loc.share,
                     icon: Icons.share,
-                    onTap: onTapShare,
+                    onTap: widget.onTapShare,
                   ),
+                  !stopAnimate ? ChipWidget(
+                    text: "Stop",
+                    icon: Icons.stop,
+                    onTap: (){
+                      setState(() {
+                        stopAnimate = true;
+                      });
+                    },
+                  ) : const SizedBox(),
                   if (isMe)
                     ChipWidget(
                       text: context.loc.re_ask,
                       icon: Icons.replay,
-                      onTap: onTapReask,
+                      onTap: widget.onTapReask,
                     ),
                 ],
               )

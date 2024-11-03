@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:chat_on/global/model/global_response.dart';
 import 'package:chat_on/modules/chat_thread/model/prompt_request.dart';
 import 'package:flutter/material.dart';
 

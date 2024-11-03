@@ -4,12 +4,18 @@ class SignUpResponse {
   int? nonce;
   int? status;
   Payload? payload;
+  // String? token;
+  // int? availableToken;
+  // String? userType;
 
   SignUpResponse({
     this.message,
     this.nonce,
     this.status,
     this.payload,
+    // this.availableToken,
+    // this.token,
+    // this.userType
   });
 
   factory SignUpResponse.fromJson(Map<String, dynamic> json) => SignUpResponse(
@@ -17,6 +23,9 @@ class SignUpResponse {
     nonce: json["nonce"],
     status: json["status"],
     payload: json["payload"] == null ? null : Payload.fromJson(json["payload"]),
+    // token: json["token"],
+    // userType: json["userType"],
+    // availableToken: json["availableToken"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -24,6 +33,9 @@ class SignUpResponse {
     "nonce": nonce,
     "status": status,
     "payload": payload?.toJson(),
+    // "availableToken" : availableToken,
+    // "userType" : userType,
+    // "token" : token,
   };
 }
 
@@ -33,7 +45,6 @@ class Payload {
   String? email;
   String? phoneNumber;
   String? password;
-  String? userType;
   String? dateOfBirth;
   String? profilePictureUrl;
   bool? isActive;
@@ -50,7 +61,6 @@ class Payload {
     this.email,
     this.phoneNumber,
     this.password,
-    this.userType,
     this.dateOfBirth,
     this.profilePictureUrl,
     this.isActive,
@@ -68,7 +78,6 @@ class Payload {
     email: json["email"],
     phoneNumber: json["phoneNumber"],
     password: json["password"],
-    userType: json["userType"],
     dateOfBirth: json["dateOfBirth"],
     profilePictureUrl: json["profilePictureUrl"],
     isActive: json["isActive"],
@@ -86,7 +95,6 @@ class Payload {
     "email": email,
     "phoneNumber": phoneNumber,
     "password": password,
-    "userType": userType,
     "dateOfBirth": dateOfBirth,
     "profilePictureUrl": profilePictureUrl,
     "isActive": isActive,

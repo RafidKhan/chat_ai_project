@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../creative_ai/view/creative_ai_screen.dart';
+import '../../tasks_for_ai/views/tasks_for_ai_screen.dart';
 import '/global/widget/global_appbar.dart';
 import '../../../global/widget/global_attempt_available.dart';
 import '../../../utils/styles/k_assets.dart';
@@ -22,14 +23,14 @@ class DashboardScreen extends StatelessWidget {
     List<Widget> screens = const [
       ChatsScreen(),
       CreativeAiScreen(),
-      //TasksForAiScreen(),
+      TasksForAiScreen(),
       HistoryScreen(),
     ];
 
     List<String> title = [
       context.loc.chats,
       context.loc.creative_ai,
-      //context.loc.ai_task,
+      context.loc.ai_task,
       context.loc.history,
     ];
 
@@ -118,17 +119,17 @@ class DashboardScreen extends StatelessWidget {
                     ),
                     label: context.loc.creative_ai,
                   ),
-                  // BottomNavigationBarItem(
-                  //   icon: GlobalImageLoader(
-                  //     imagePath: KAssetName.creativeAiWhitePng.imagePath,
-                  //     height: iconHeight,
-                  //     width: iconWidth,
-                  //     color: state.selectedIndex == 2
-                  //         ? KColor.accent2.color
-                  //         : KColor.greyText.color,
-                  //   ),
-                  //   label: context.loc.ai_task,
-                  // ),
+                  BottomNavigationBarItem(
+                    icon: GlobalImageLoader(
+                      imagePath: KAssetName.creativeAiWhitePng.imagePath,
+                      height: iconHeight,
+                      width: iconWidth,
+                      color: state.selectedIndex == 2
+                          ? KColor.accent2.color
+                          : KColor.greyText.color,
+                    ),
+                    label: context.loc.ai_task,
+                  ),
                   BottomNavigationBarItem(
                     icon: GlobalImageLoader(
                       imagePath: KAssetName.icHistoryPng.imagePath,

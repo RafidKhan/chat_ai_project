@@ -72,7 +72,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                      promptResponse: item.response,
                      aiType: item.promptId?.aiType ?? "",
                   );
-                  return item.promptId != null ? HistoryItem(
+                  return model.promptResponse!.startsWith("https://oaidalleapiprodscus.blob.core")
+                      || item.promptId != null ? HistoryItem(
                     itemModel: model,
                     onMenuTap: () {
                       ViewUtil.bottomSheet(

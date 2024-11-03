@@ -99,7 +99,7 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
         params: PromptRequest(
           promptId: state.promptId,
           customPrompt: prompt,
-          fileUrl: imageUrl,
+          fileUrl: imageUrl
         ),
         onSuccess: (response) {
           state = state.copyWith(isReplyLoading: false);

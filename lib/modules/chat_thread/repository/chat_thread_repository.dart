@@ -1,10 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:chat_on/modules/chat_thread/repository/chat_thread_api.dart';
-import 'package:chat_on/utils/extension.dart';
 
-import '../../../global/model/global_response.dart';
 import '../model/chat_ai_response.dart';
 import '../model/file_upload_response.dart';
 import '../model/prompt_request.dart';

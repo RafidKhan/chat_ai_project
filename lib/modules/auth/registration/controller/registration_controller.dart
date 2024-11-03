@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:chat_on/modules/auth/registration/model/registration_request.dart';
 import 'package:chat_on/utils/app_routes.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +7,11 @@ import 'package:chat_on/modules/auth/registration/controller/state/registration_
 import 'package:chat_on/utils/extension.dart';
 import 'package:chat_on/utils/navigation.dart';
 import 'package:chat_on/utils/view_util.dart';
+import '../../../../constant/constant_key.dart';
+import '../../../../data_provider/pref_helper.dart';
+import '../../sign_in/model/sign_in_request.dart';
+import '../../sign_in/repository/sign_in_interface.dart';
+import '../../sign_in/repository/sign_in_repository.dart';
 import '../repository/registration_interface.dart';
 import '../repository/registration_repository.dart';
 
@@ -16,8 +20,8 @@ final registrationController =
         (ref) => RegistrationController());
 
 class RegistrationController extends StateNotifier<RegistrationState> {
-  final IRegistrationRepository _registrationRepository =
-      RegistrationRepository();
+  final IRegistrationRepository _registrationRepository = RegistrationRepository();
+  final ISignInRepository _signinRepository = SignInRepository();
 
   RegistrationController()
       : super(RegistrationState(
@@ -81,8 +85,7 @@ class RegistrationController extends StateNotifier<RegistrationState> {
 
   Future<void> requestSignUp(BuildContext context) async {
     ViewUtil.showLoader();
-    final fullName =
-        "${state.firstNameController.text.trim()} ${state.lastNameController.text.trim()}";
+    final fullName = "${state.firstNameController.text.trim()} ${state.lastNameController.text.trim()}";
     final params = RegistrationRequest(
       fullName: fullName,
       email: state.emailController.text.trim(),
@@ -91,16 +94,36 @@ class RegistrationController extends StateNotifier<RegistrationState> {
     );
     await _registrationRepository.requestRegistration(
       registrationRequest: params,
-      onSuccess: (response) {
+      onSuccess: (response) async{
         Navigation.pop(context);
         final message = response.message;
         if (message != null) {
           ViewUtil.SSLSnackbar(message);
         }
-        Navigation.pushAndRemoveUntil(
-          context,
-          appRoutes: AppRoutes.signIn,
-        );
+        //Navigation.pop(context);
+        await signIn(context,email: state.emailController.text.trim(), password: state.password.text.trim());
+      },
+    );
+  }
+
+  Future<void> signIn(BuildContext context, {required String email,required String password}) async {
+    ViewUtil.showLoader();
+    final params = SignInRequest(
+      email: email,
+      password: password,
+    );
+    await _signinRepository.signIn(
+      params: params,
+      onSuccess: (response) async {
+       // Navigation.pop(context);
+        await PrefHelper.setInt(AppConstant.AVAILABLE_TOKEN.key, response.availableToken!);
+        await PrefHelper.setString(AppConstant.USER_TYPE.key, response.userType!);
+        await PrefHelper.setString(AppConstant.TOKEN.key, response.token ?? "").then((e) {
+          Navigation.pushAndRemoveUntil(
+            context,
+            appRoutes: AppRoutes.dashboard,
+          );
+        });
       },
     );
   }
