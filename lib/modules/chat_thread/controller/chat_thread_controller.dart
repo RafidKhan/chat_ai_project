@@ -277,7 +277,7 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
     }
   }
 
-  loadHistory({String? message,String? promptId, String? response,String? imageUrl}) {
+  loadHistory({String? message,String? promptId, String? response}) {
     final userChat = ChatThreadModel(
       userType: ChatUserType.USER_ME,
       promptId: state.promptId,
@@ -287,8 +287,10 @@ class ChatThreadController extends StateNotifier<ChatThreadState> {
       userType: ChatUserType.USER_BOT,
       promptId: state.promptId,
       prompt: response!,
-      imageUrl: imageUrl,
     );
+    if(response.endsWith(".jpg") || response.endsWith(".jpeg") || response.endsWith(".png")){
+      responseChat.imageUrl = response;
+    }
     state = state.copyWith(threads: [userChat,responseChat]);
   }
 

@@ -101,7 +101,6 @@ class _ChatBubbleState extends State<ChatBubble> {
     } else {
       promptText = widget.model.prompt;
     }
-
     return LayoutBuilder(builder: (context, constraints) {
       final maxWidth = constraints.maxWidth;
       return Container(
@@ -129,28 +128,35 @@ class _ChatBubbleState extends State<ChatBubble> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              !stopAnimate && widget.model.imageUrl == null &&  !isMe && widget.isAnimate
-                  ? AnimatedTextKit(
-                     isRepeatingAnimation: false,
-                      repeatForever: false,
-                      animatedTexts: [
-                        TyperAnimatedText(
-                          promptText,
-                          textStyle: TextStyle(
+              if(widget.model.imageUrl == null)...[
+                !stopAnimate && !isMe && widget.isAnimate
+                    ? AnimatedTextKit(
+                  isRepeatingAnimation: false,
+                  repeatForever: false,
+                  animatedTexts: [
+                    TyperAnimatedText(
+                        promptText,
+                        textStyle: TextStyle(
                             color: KColor.black.color,
-                              fontSize: 16.0,
-                              fontFamily: AppConstant.FONTFAMILY.key,
-                              fontWeight: FontWeight.w400),
-                          speed: const Duration(milliseconds: 10)
-                        )
-                      ],
+                            fontSize: 16.0,
+                            fontFamily: AppConstant.FONTFAMILY.key,
+                            fontWeight: FontWeight.w400),
+                        speed: const Duration(milliseconds: 10)
                     )
-                  : GlobalText(
-                      str: promptText,
-                      color: isMe ? KColor.white.color : KColor.black.color,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  ],
+                  onFinished: (){
+                    setState(() {
+                      stopAnimate = true;
+                    });
+                  },
+                )
+                    : GlobalText(
+                  str: promptText,
+                  color: isMe ? KColor.white.color : KColor.black.color,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              ],
               if (widget.model.imageUrl != null) ...[
                 SizedBox(
                   height: 5.h,
@@ -196,7 +202,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                     icon: Icons.share,
                     onTap: widget.onTapShare,
                   ),
-                  !stopAnimate ? ChipWidget(
+                 widget.model.imageUrl == null && !isMe && !stopAnimate ? ChipWidget(
                     text: "Stop",
                     icon: Icons.stop,
                     onTap: (){

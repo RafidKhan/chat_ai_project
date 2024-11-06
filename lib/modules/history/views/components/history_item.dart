@@ -23,7 +23,7 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        final model = ChatThreadNavModel(promptId: itemModel.promptId, customPrompt: itemModel.title,promptResponse: itemModel.promptResponse,aiType: "");
+        final model = ChatThreadNavModel(promptId: itemModel.promptId, customPrompt: itemModel.title,promptResponse: itemModel.promptResponse,aiType: itemModel.aiType);
         Navigation.push(
           context,
           appRoutes: AppRoutes.chatThread,
